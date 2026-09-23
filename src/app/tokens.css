@@ -14,9 +14,18 @@
   /* ── Accent (warm orange) ─────────────────────────────── */
   --color-accent-50: #FFF7ED;
   --color-accent-100: #FFEDD5;
+  --color-accent-200: #FED7AA;
   --color-accent-400: #FB923C;
   --color-accent-500: #F97316;
   --color-accent-600: #EA580C;
+
+  /* ── Card tints (Benefits per-image gradients) ────────── */
+  --color-violet-50: #F5F3FF;
+  --color-violet-100: #EDE9FE;
+  --color-violet-200: #DDD6FE;
+  --color-pink-50: #FDF2F8;
+  --color-pink-100: #FCE7F3;
+  --color-pink-200: #FBCFE8;
 
   /* ── Semantic ─────────────────────────────────────────── */
   --color-success: #22C55E;

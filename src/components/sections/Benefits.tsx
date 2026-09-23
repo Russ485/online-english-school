@@ -1,9 +1,8 @@
 "use client";
 
-import { useRef, useEffect } from "react";
 import Image from "next/image";
 import { ArrowRightIcon } from "@phosphor-icons/react";
-import { useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 const benefits = [
   {
@@ -12,6 +11,8 @@ const benefits = [
     title: "Real teachers, real progress",
     description:
       "Live sessions with certified English tutors who adapt to every child's pace.",
+    gradient: "from-white via-accent-50 to-accent-200",
+    place: "",
   },
   {
     image: "/benefits/video_game_3d.png",
@@ -19,6 +20,8 @@ const benefits = [
     title: "Learning through play",
     description:
       "Interactive games, quizzes, and challenges that make new words stick.",
+    gradient: "from-white via-violet-50 to-violet-200",
+    place: "",
   },
   {
     image: "/benefits/bar_chart_3d.png",
@@ -26,6 +29,8 @@ const benefits = [
     title: "Track every step",
     description:
       "Parents see real progress — scores, streaks, and milestones in your dashboard.",
+    gradient: "from-white via-primary-50 to-primary-200",
+    place: "",
   },
   {
     image: "/benefits/alarm_clock_3d.png",
@@ -33,6 +38,8 @@ const benefits = [
     title: "Schedule that fits you",
     description:
       "Book sessions mornings, evenings, or weekends — flex around school and life.",
+    gradient: "from-white via-pink-50 to-pink-200",
+    place: "lg:col-start-2",
   },
   {
     image: "/benefits/people_hugging_3d.png",
@@ -40,53 +47,37 @@ const benefits = [
     title: "Small groups, big confidence",
     description:
       "Max 4 students per group class — enough friends, enough attention.",
+    gradient: "from-white via-violet-50 to-violet-200",
+    place:
+      "md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)] lg:col-start-4 lg:w-auto",
   },
 ];
 
+const cardVariants = {
+  rest: { scale: 1 },
+  hover: { scale: 1.03 },
+};
+
+const imgVariants = {
+  rest: { scale: 1, rotate: 0 },
+  hover: { scale: 1.1, rotate: 6 },
+};
+
 export function Benefits() {
-  const sectionRef = useRef<HTMLElement | null>(null);
   const reduce = useReducedMotion();
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section || reduce || typeof IntersectionObserver === "undefined")
-      return;
-    const cards = Array.from(section.querySelectorAll(".benefit-card"));
-    cards.forEach((card, i) => {
-      card.classList.add("opacity-0", "translate-y-10");
-      (card as HTMLElement).style.transitionDelay = `${i * 100}ms`;
-    });
-    const timers: ReturnType<typeof setTimeout>[] = [];
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const card = entry.target as HTMLElement;
-          io.unobserve(card);
-          card.classList.remove("opacity-0", "translate-y-10");
-          // clear stagger delay after entrance so hover stays instant
-          timers.push(
-            setTimeout(() => {
-              card.style.transitionDelay = "0ms";
-            }, 650)
-          );
-        });
-      },
-      { threshold: 0.25 }
-    );
-    cards.forEach((card) => io.observe(card));
-    return () => {
-      io.disconnect();
-      timers.forEach(clearTimeout);
-      cards.forEach((card) => {
-        card.classList.remove("opacity-0", "translate-y-10");
-        (card as HTMLElement).style.transitionDelay = "0ms";
-      });
-    };
-  }, [reduce]);
+  const cardTransition = reduce
+    ? undefined
+    : {
+        duration: 0.3,
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+      };
+  const imgTransition = reduce
+    ? undefined
+    : { type: "spring" as const, stiffness: 400, damping: 10 };
 
   return (
-    <section ref={sectionRef} className="bg-white py-16 md:py-24">
+    <section className="bg-white py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="font-[family-name:var(--font-display)] text-3xl font-semibold tracking-tight text-gray-900 md:text-4xl">
@@ -94,39 +85,45 @@ export function Benefits() {
           </h2>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {benefits.map((benefit, index) => (
-            <div
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-6">
+          {benefits.map((benefit) => (
+            <motion.div
               key={benefit.title}
-              className={`benefit-card group flex min-h-[240px] flex-col gap-6 rounded-xl border border-gray-200 bg-gray-50 p-6 opacity-100 shadow-soft transition-[translate,box-shadow,opacity] duration-300 ease-out-expo hover:-translate-y-1 hover:shadow-md sm:flex-row sm:items-start ${
-                index === benefits.length - 1
-                  ? "lg:col-span-2 lg:mx-auto lg:w-[calc(50%-0.75rem)]"
-                  : ""
-              }`}
+              className={`benefit-card group relative min-h-[264px] overflow-hidden rounded-xl border border-gray-200 bg-gradient-to-br ${benefit.gradient} p-6 md:p-8 transition-shadow duration-300 ease-out-expo hover:shadow-md lg:col-span-2 ${benefit.place}`}
+              initial="rest"
+              animate="rest"
+              whileHover={reduce ? undefined : "hover"}
+              variants={cardVariants}
+              transition={cardTransition}
             >
-              <div className="shrink-0">
+              <motion.div
+                variants={imgVariants}
+                transition={imgTransition}
+                className="pointer-events-none absolute -bottom-5 -right-5 h-36 w-36 sm:h-44 sm:w-44"
+              >
                 <Image
                   src={benefit.image}
                   alt={benefit.alt}
-                  width={80}
-                  height={80}
-                  className="h-16 w-16 object-contain sm:h-20 sm:w-20"
+                  width={200}
+                  height={200}
+                  className="h-full w-full object-contain"
                 />
-              </div>
-              <div className="flex h-full flex-1 flex-col justify-between">
-                <div>
-                  <h3 className="font-[family-name:var(--font-display)] text-lg font-medium text-gray-900">
-                    {benefit.title}
-                  </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-gray-600">
-                    {benefit.description}
-                  </p>
+              </motion.div>
+              <div className="relative z-10 flex h-full flex-col">
+                <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold text-gray-900 sm:text-2xl">
+                  {benefit.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-gray-700">
+                  {benefit.description}
+                </p>
+                <div className="mt-auto flex items-center gap-1.5 pt-4">
+                  <span className="text-sm font-medium text-gray-600 transition-colors duration-200 group-hover:text-primary-600">
+                    Learn more
+                  </span>
+                  <ArrowRightIcon className="h-4 w-4 text-gray-400 transition-all duration-200 group-hover:translate-x-1 group-hover:text-primary-600" />
                 </div>
-                <div className="mt-4 flex justify-end">
-                  <ArrowRightIcon className="h-5 w-5 text-gray-300 transition-all duration-200 group-hover:translate-x-1 group-hover:text-primary-500" />
-                </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
