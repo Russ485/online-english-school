@@ -1,6 +1,6 @@
 "use client";
 
-import { Star } from "@phosphor-icons/react";
+import { StarIcon } from "@phosphor-icons/react";
 
 const testimonials = [
   {
@@ -47,7 +47,7 @@ export function Testimonials() {
             >
               <div className="flex gap-1">
                 {[...Array(5)].map((_, i) => (
-                  <Star
+                  <StarIcon
                     key={i}
                     className="h-4 w-4 text-accent-400"
                     weight="fill"

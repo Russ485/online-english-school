@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CaretDown } from "@phosphor-icons/react";
+import { CaretDownIcon } from "@phosphor-icons/react";
 
 const faqs = [
   {
@@ -64,7 +64,7 @@ export function Faq() {
                 <span className="font-medium text-gray-900">
                   {faq.question}
                 </span>
-                <CaretDown
+                <CaretDownIcon
                   className={`h-5 w-5 flex-shrink-0 text-gray-500 transition-transform duration-200 ${
                     openIndex === index ? "rotate-180" : ""
                   }`}

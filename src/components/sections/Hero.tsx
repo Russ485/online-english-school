@@ -2,7 +2,7 @@
 
 import React, { useRef, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Play } from "@phosphor-icons/react";
+import { ArrowRightIcon, PlayIcon } from "@phosphor-icons/react";
 import {
   motion,
   useScroll,
@@ -264,10 +264,10 @@ export function Hero() {
             <div className="hero-cta mt-8 flex flex-wrap items-center justify-center gap-4">
               <button className="inline-flex items-center gap-2 rounded-full bg-primary-500 px-7 py-3.5 text-[15px] font-medium text-white shadow-soft transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-200 focus-visible:ring-offset-2 active:translate-y-0 active:shadow-soft">
                 Start learning
-                <ArrowRight className="h-4 w-4" weight="bold" />
+                <ArrowRightIcon className="h-4 w-4" weight="bold" />
               </button>
               <button className="inline-flex items-center gap-2 rounded-full border-2 border-primary-200 bg-white px-7 py-3.5 text-[15px] font-medium text-primary-600 transition-[transform,background-color,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary-500 hover:bg-primary-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-200 focus-visible:ring-offset-2 active:translate-y-0">
-                <Play className="h-4 w-4" weight="fill" />
+                <PlayIcon className="h-4 w-4" weight="fill" />
                 See how it works
               </button>
             </div>

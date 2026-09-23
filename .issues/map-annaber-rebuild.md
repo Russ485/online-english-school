@@ -64,16 +64,28 @@ Rebuild the AnnaBer landing page from scratch on the same product concept, but w
 | # | File | Status | Depends on |
 |---|------|--------|------------|
 | 00 | `tickets-rebuild/00-product-init.md` | CLOSED | - |
-| 01 | `tickets-rebuild/01-playwright-baseline.md` | OPEN | 00 |
-| 02 | `tickets-rebuild/02-impeccable-critique.md` | OPEN | 01 |
-| 03 | `tickets-rebuild/03-hero-parallax-21st.md` | OPEN | 02 |
-| 04 | `tickets-rebuild/04-benefits-21st.md` | OPEN | 02 |
+| 01 | `tickets-rebuild/01-playwright-baseline.md` | CLOSED | 00 |
+| 02 | `tickets-rebuild/02-impeccable-critique.md` | CLOSED | 01 |
+| 03 | `tickets-rebuild/03-hero-parallax-21st.md` | PARTIAL — web/desktop done, mobile/tablet adaptive → follow-up | 02 |
+| 04 | `tickets-rebuild/04-benefits-21st.md` | OPEN (NEXT) | 02 |
 | 05 | `tickets-rebuild/05-pricing-howitworks-21st.md` | OPEN | 03,04 |
 | 06 | `tickets-rebuild/06-testimonials-faq-footer-21st.md` | OPEN | 05 |
 | 07 | `tickets-rebuild/07-gsap-motion-pass.md` | OPEN | 06 |
 | 08 | `tickets-rebuild/08-impeccable-polish.md` | OPEN | 07 |
 | 09 | `tickets-rebuild/09-playwright-verification.md` | OPEN | 08 |
 | 10 | `tickets-rebuild/10-code-review.md` | OPEN | 09 |
+
+> **03 adaptive:** `Hero.tsx:1` web/desktop done (`h-[180vh] 12° [-370,70]`), screenshots cleaned, `page.tsx → Hero`. Mobile/tablet (sizes/top/mt) → окремий тікет після гриль-сесії, зараз НЕ чіпати 03.
+
+## Workflow — як домовились (Hero → Benefits — один і той самий)
+
+**Взірець не чіпати → прототип окремо → консолідація → видалити зайве → Build → STOP**
+
+1. Взірець `Benefits.tsx:1` не чіпаємо → `BenefitsPrototype.tsx` (+ `BenefitsFinal.tsx` якщо треба), `page.tsx` SWITCH `Hero/BenefitsPrototype/Final` для ітерацій.
+2. 21st `search --json → links https://21st.dev/c/<id> → ok → get` (tickets 03-06, 2/day, gate) або ручний дизайн.
+3. Playwright `baseline.spec.ts` + scroll-скріни **за потреби** (на Hero — 4 папки `hero-*` видалено, baseline to be regenerated at 09).
+4. Консолідація прототипу в основний (`Prototype → Benefits.tsx`), видалити зайві файли/скріни, `page.tsx` чистий, Build ✓ → STOP → чекай `go`.
+5. **Skills порядок:** `impeccable` (00 init + 02 critique → 08 polish) → `21st-cli-use` (03-06) → `gsap*` (03+07 scrub) → `playwright-core` (01+09 + діагностика) → `ui-ux-pro-max/high-end-visual-design` (опційно на BEFORE START) → `code-review` (10).
 
 Notes:
 - 04 can run parallel to 03 after 02, but per ONE-TICKET rule will be sequential (03 → 04).

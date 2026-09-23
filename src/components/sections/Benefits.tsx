@@ -1,77 +1,88 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import {
-  ChalkboardTeacher,
-  GameController,
-  TrendUp,
-  Clock,
-  Users,
-} from "@phosphor-icons/react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
+import { ArrowRightIcon } from "@phosphor-icons/react";
 import { useReducedMotion } from "framer-motion";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const benefits = [
   {
-    icon: ChalkboardTeacher,
+    image: "/benefits/school_3d.png",
+    alt: "3D school building",
     title: "Real teachers, real progress",
     description:
       "Live sessions with certified English tutors who adapt to every child's pace.",
-    color: "bg-primary-100 text-primary-600",
   },
   {
-    icon: GameController,
+    image: "/benefits/video_game_3d.png",
+    alt: "3D game controller",
     title: "Learning through play",
     description:
       "Interactive games, quizzes, and challenges that make new words stick.",
-    color: "bg-accent-100 text-accent-600",
   },
   {
-    icon: TrendUp,
+    image: "/benefits/bar_chart_3d.png",
+    alt: "3D growth chart",
     title: "Track every step",
     description:
       "Parents see real progress — scores, streaks, and milestones in your dashboard.",
-    color: "bg-success/10 text-success",
   },
   {
-    icon: Clock,
+    image: "/benefits/alarm_clock_3d.png",
+    alt: "3D alarm clock",
     title: "Schedule that fits you",
     description:
       "Book sessions mornings, evenings, or weekends — flex around school and life.",
-    color: "bg-primary-100 text-primary-600",
   },
   {
-    icon: Users,
+    image: "/benefits/people_hugging_3d.png",
+    alt: "3D friends hugging",
     title: "Small groups, big confidence",
     description:
       "Max 4 students per group class — enough friends, enough attention.",
-    color: "bg-accent-100 text-accent-600",
   },
 ];
 
 export function Benefits() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
   const reduce = useReducedMotion();
 
   useEffect(() => {
-    if (reduce || !sectionRef.current) return;
-    const ctx = gsap.context(() => {
-      gsap.from(".benefit-card", {
-        opacity: 0,
-        y: 40,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 80%",
-        },
+    const section = sectionRef.current;
+    if (!section || reduce || typeof IntersectionObserver === "undefined")
+      return;
+    const cards = Array.from(section.querySelectorAll(".benefit-card"));
+    cards.forEach((card, i) => {
+      card.classList.add("opacity-0", "translate-y-10");
+      (card as HTMLElement).style.transitionDelay = `${i * 100}ms`;
+    });
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const card = entry.target as HTMLElement;
+          io.unobserve(card);
+          card.classList.remove("opacity-0", "translate-y-10");
+          // clear stagger delay after entrance so hover stays instant
+          timers.push(
+            setTimeout(() => {
+              card.style.transitionDelay = "0ms";
+            }, 650)
+          );
+        });
+      },
+      { threshold: 0.25 }
+    );
+    cards.forEach((card) => io.observe(card));
+    return () => {
+      io.disconnect();
+      timers.forEach(clearTimeout);
+      cards.forEach((card) => {
+        card.classList.remove("opacity-0", "translate-y-10");
+        (card as HTMLElement).style.transitionDelay = "0ms";
       });
-    }, sectionRef);
-    return () => ctx.revert();
+    };
   }, [reduce]);
 
   return (
@@ -83,23 +94,38 @@ export function Benefits() {
           </h2>
         </div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {benefits.map((benefit) => (
+        <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-2">
+          {benefits.map((benefit, index) => (
             <div
               key={benefit.title}
-              className="benefit-card group rounded-xl bg-gray-50 p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-md"
+              className={`benefit-card group flex min-h-[240px] flex-col gap-6 rounded-xl border border-gray-200 bg-gray-50 p-6 opacity-100 shadow-soft transition-[translate,box-shadow,opacity] duration-300 ease-out-expo hover:-translate-y-1 hover:shadow-md sm:flex-row sm:items-start ${
+                index === benefits.length - 1
+                  ? "lg:col-span-2 lg:mx-auto lg:w-[calc(50%-0.75rem)]"
+                  : ""
+              }`}
             >
-              <div
-                className={`inline-flex h-12 w-12 items-center justify-center rounded-xl ${benefit.color}`}
-              >
-                <benefit.icon className="h-6 w-6" weight="regular" />
+              <div className="shrink-0">
+                <Image
+                  src={benefit.image}
+                  alt={benefit.alt}
+                  width={80}
+                  height={80}
+                  className="h-16 w-16 object-contain sm:h-20 sm:w-20"
+                />
               </div>
-              <h3 className="mt-4 font-[family-name:var(--font-display)] text-lg font-medium text-gray-900">
-                {benefit.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-gray-600">
-                {benefit.description}
-              </p>
+              <div className="flex h-full flex-1 flex-col justify-between">
+                <div>
+                  <h3 className="font-[family-name:var(--font-display)] text-lg font-medium text-gray-900">
+                    {benefit.title}
+                  </h3>
+                  <p className="mt-1 text-sm leading-relaxed text-gray-600">
+                    {benefit.description}
+                  </p>
+                </div>
+                <div className="mt-4 flex justify-end">
+                  <ArrowRightIcon className="h-5 w-5 text-gray-300 transition-all duration-200 group-hover:translate-x-1 group-hover:text-primary-500" />
+                </div>
+              </div>
             </div>
           ))}
         </div>

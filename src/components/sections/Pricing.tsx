@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { Check, ArrowRight } from "@phosphor-icons/react";
+import { CheckIcon, ArrowRightIcon } from "@phosphor-icons/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "framer-motion";
@@ -132,7 +132,7 @@ export function Pricing() {
               <ul className="mt-6 space-y-3">
                 {plan.features.map((feature) => (
                   <li key={feature} className="flex items-start gap-3">
-                    <Check
+                    <CheckIcon
                       className={`mt-0.5 h-4 w-4 flex-shrink-0 ${
                         plan.popular ? "text-primary-100" : "text-success"
                       }`}
@@ -156,7 +156,7 @@ export function Pricing() {
                 }`}
               >
                 Start learning
-                <ArrowRight className="h-4 w-4" weight="bold" />
+                <ArrowRightIcon className="h-4 w-4" weight="bold" />
               </button>
             </div>
           ))}

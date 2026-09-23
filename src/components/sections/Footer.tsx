@@ -1,12 +1,12 @@
 "use client";
 
 import {
-  InstagramLogo,
-  FacebookLogo,
-  YoutubeLogo,
-  TiktokLogo,
-  EnvelopeSimple,
-  Phone,
+  InstagramLogoIcon,
+  FacebookLogoIcon,
+  YoutubeLogoIcon,
+  TiktokLogoIcon,
+  EnvelopeSimpleIcon,
+  PhoneIcon,
 } from "@phosphor-icons/react";
 
 const footerLinks = {
@@ -28,10 +28,10 @@ const footerLinks = {
 };
 
 const socials = [
-  { icon: InstagramLogo, href: "#", label: "Instagram" },
-  { icon: FacebookLogo, href: "#", label: "Facebook" },
-  { icon: YoutubeLogo, href: "#", label: "YouTube" },
-  { icon: TiktokLogo, href: "#", label: "TikTok" },
+  { icon: InstagramLogoIcon, href: "#", label: "Instagram" },
+  { icon: FacebookLogoIcon, href: "#", label: "Facebook" },
+  { icon: YoutubeLogoIcon, href: "#", label: "YouTube" },
+  { icon: TiktokLogoIcon, href: "#", label: "TikTok" },
 ];
 
 export function Footer() {
@@ -51,14 +51,14 @@ export function Footer() {
                 href="mailto:hello@annaber.com"
                 className="flex items-center gap-2 text-sm text-gray-400 hover:text-white"
               >
-                <EnvelopeSimple className="h-4 w-4" weight="regular" />
+                <EnvelopeSimpleIcon className="h-4 w-4" weight="regular" />
                 hello@annaber.com
               </a>
               <a
                 href="tel:+15551234567"
                 className="flex items-center gap-2 text-sm text-gray-400 hover:text-white"
               >
-                <Phone className="h-4 w-4" weight="regular" />
+                <PhoneIcon className="h-4 w-4" weight="regular" />
                 +1 (555) 123-4567
               </a>
             </div>

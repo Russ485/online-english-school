@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { CalendarBlank, UserPlus, BookOpen } from "@phosphor-icons/react";
+import { CalendarBlankIcon, UserPlusIcon, BookOpenIcon } from "@phosphor-icons/react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "framer-motion";
@@ -11,21 +11,21 @@ gsap.registerPlugin(ScrollTrigger);
 const steps = [
   {
     number: "01",
-    icon: CalendarBlank,
+    icon: CalendarBlankIcon,
     title: "Book your free trial",
     description:
       "Pick a time that works — no card needed, no commitment.",
   },
   {
     number: "02",
-    icon: UserPlus,
+    icon: UserPlusIcon,
     title: "Meet your teacher",
     description:
       "A quick chat to find the right match for your child's level and personality.",
   },
   {
     number: "03",
-    icon: BookOpen,
+    icon: BookOpenIcon,
     title: "Start learning",
     description:
       "Jump into your first lesson — fun, interactive, and zero pressure.",
