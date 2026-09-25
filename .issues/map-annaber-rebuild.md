@@ -67,8 +67,8 @@ Rebuild the AnnaBer landing page from scratch on the same product concept, but w
 | 01 | `tickets-rebuild/01-playwright-baseline.md` | CLOSED | 00 |
 | 02 | `tickets-rebuild/02-impeccable-critique.md` | CLOSED | 01 |
 | 03 | `tickets-rebuild/03-hero-parallax-21st.md` | PARTIAL — web/desktop done, mobile/tablet adaptive → follow-up | 02 |
-| 04 | `tickets-rebuild/04-benefits-21st.md` | OPEN (NEXT) | 02 |
-| 05 | `tickets-rebuild/05-pricing-howitworks-21st.md` | OPEN | 03,04 |
+| 04 | `tickets-rebuild/04-benefits-21st.md` | CLOSED (2026-09-23, DIRECT EDIT, gradient-card hand-replicate) | 02 |
+| 05 | `tickets-rebuild/05-pricing-howitworks-21st.md` | PARTIAL — Pricing DONE (2026-09-25, hand-replicate 6247, no 21st get), HowItWorks NEXT | 03,04 |
 | 06 | `tickets-rebuild/06-testimonials-faq-footer-21st.md` | OPEN | 05 |
 | 07 | `tickets-rebuild/07-gsap-motion-pass.md` | OPEN | 06 |
 | 08 | `tickets-rebuild/08-impeccable-polish.md` | OPEN | 07 |
@@ -90,3 +90,4 @@ Rebuild the AnnaBer landing page from scratch on the same product concept, but w
 Notes:
 - 04 can run parallel to 03 after 02, but per ONE-TICKET rule will be sequential (03 → 04).
 - `opencode mcp add` for Open Design should be done during 00 if user provides MCP endpoint.
+- **04 outcome (2026-09-23):** CLOSED via **DIRECT EDIT** — prototype/page-SWITCH workflow відхилено користувачем; прецедент для 05+. Framer Motion для hover-мікроанімацій у секціях (GSAP лише Hero scrub + 07). 21st gradient-card id 5514 REJECTED (license empty) — не пропонувати знову.

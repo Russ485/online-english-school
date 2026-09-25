@@ -160,34 +160,34 @@ export function Hero() {
 
   const translateX = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, 1000]),
-    springConfig
+    springConfig,
   );
   const translateXReverse = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, -1000]),
-    springConfig
+    springConfig,
   );
   const rotateX = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [12, 0]),
-    springConfig
+    springConfig,
   );
   const opacity = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
-    springConfig
+    springConfig,
   );
   const rotateZ = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [12, 0]),
-    springConfig
+    springConfig,
   );
   const translateY = useSpring(
     useTransform(scrollYProgress, [0, 0.2], [-370, 70]),
-    springConfig
+    springConfig,
   );
 
   useEffect(() => {
     if (reduce) return;
     gsap.registerPlugin(ScrollTrigger);
     const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
     if (prefersReduced) return;
 
@@ -232,7 +232,10 @@ export function Hero() {
   const thirdRowLoop = [...thirdRow, ...thirdRow];
 
   return (
-    <section ref={sectionRef} className="hero relative h-[180vh] overflow-hidden bg-gray-50">
+    <section
+      ref={sectionRef}
+      className="hero relative h-[180vh] overflow-hidden bg-gray-50"
+    >
       <div
         aria-hidden
         className="hero-blur-1 pointer-events-none absolute -top-24 -left-24 z-0 h-72 w-72 rounded-full bg-primary-100/60 blur-[50px] md:h-96 md:w-96"
@@ -258,8 +261,8 @@ export function Hero() {
               <span className="text-primary-500">enjoy</span> learning English
             </h1>
             <p className="hero-subtitle mx-auto mt-6 max-w-xl text-lg leading-relaxed text-gray-600">
-              Fun, interactive lessons with real teachers that build confidence and
-              fluency — from first words to full conversations.
+              Fun, interactive lessons with real teachers that build confidence
+              and fluency — from first words to full conversations.
             </p>
             <div className="hero-cta mt-8 flex flex-wrap items-center justify-center gap-4">
               <button className="inline-flex items-center gap-2 rounded-full bg-primary-500 px-7 py-3.5 text-[15px] font-medium text-white shadow-soft transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-200 focus-visible:ring-offset-2 active:translate-y-0 active:shadow-soft">
