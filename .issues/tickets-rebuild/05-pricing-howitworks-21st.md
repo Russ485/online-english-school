@@ -2,7 +2,7 @@
 
 **Label:** wayfinder:task
 **Map:** map-annaber-rebuild.md
-**Status:** REOPENED (2026-09-26) — Pricing DONE; HowItWorks анімація ітерація-3 DONE, чекаємо решту коментарів користувача («не поспішати з закриттям»)
+**Status:** CLOSED (2026-09-26) — Pricing DONE + HowItWorks DONE + анімація ітерація-3 підтверджена користувачем («так, зараз гарно»)
 **Blocked by:** 03-hero-parallax-21st.md, 04-benefits-21st.md
 
 ## Question
@@ -25,7 +25,7 @@ Rebuild Pricing (3 tiers $29/$79/$149) and HowItWorks (3 steps) via 21st — Day
 
 ## Resolution
 
-**CLOSED (2026-09-25) — Pricing DONE + HowItWorks DONE.**
+**CLOSED (2026-09-25, фінал 2026-09-26) — Pricing DONE + HowItWorks DONE + анімація ітерація-3.**
 
 ### Pricing (DONE)
 
@@ -50,10 +50,10 @@ Rebuild Pricing (3 tiers $29/$79/$149) and HowItWorks (3 steps) via 21st — Day
 - HTML/ARIA: весь контент картки в `<button>` з `aria-pressed` (спан-типографіка, **без `h3`** — `button` не може містити heading), зображення `alt=""` + контейнер `role="img" aria-label`.
 - Verify: lint ✓ build ✓; тимчасова Playwright-спека (друга ітерація) **3/3**: radius=16px; статика до hover; hold ≥3.5s усі opacity≥0.99 (timestamp-driven, 11+ семплів); pulse: container scale 1.004–1.012, img 0.988–0.996, product 1±0.003; no-overlap (max intersection <1px²); fade на 5.7s (усі <0.9); repeat (2-й hold на 7.7s усі ≥0.99); sticky; reduce-статика; mobile tap ✓. ⚠️ `test.use({ reducedMotion: "reduce" })` у цій версії Playwright **ігнорується** → працює `page.emulateMedia({ reducedMotion: "reduce" })` перед `goto`. Спека/test-results/temp-папки **видалені**; `tests/baseline.spec.ts` не чіпали.
 
-### HowItWorks — анімація, ітерація 3 (2026-09-26, REOPENED)
+### HowItWorks — анімація, ітерація 3 (2026-09-26, CLOSED)
 
 - **Діагноз ітерації-2 (рев'ю користувача):** пульс був накладений на КОНТЕЙНЕР (`pulseLoop` grid 1→1.008) + контр-масштаб картинки `counterLoop` (1/1.008) → (1) рамки тайлів на піку виходили за межі колонки ~2.5px (у ланцюжку ніде немає `overflow-hidden`); (2) пікселі фото лишались статичними, а рамки роз'їжджались назовні → по зовнішньому периметру просвічувала `bg-gray-100` смуга до ~5px («не налаштований оверлей»); (3) поява закінчувалась на scale 1 = одразу максимум, а пульс ішов ВИЩЕ максимуму → «з'являється вже збільшена».
 - **Затверджено (question tool):** форма пульсу **туди-назад** (0.96 → 1.0 → 0.96 у межах холду, зникання в малому стані), амплітуда **rest scale 0.96 → геп ~12px**. Зникання **синхронне** ✓ і стагерований вхід ✓ — схвалено, без змін (реверс-лічильник оригіналу — «забагато», REJECTED).
 - **Специфікація (cycle 6.2s / HOLD_END 0.83 / STAGGER 0.065 незмінні):** tile keyframes-6 — opacity `[0,0,1,1,1,0]`, scale `[APPEAR 0.93, 0.93, REST 0.96, 1, 0.96, 0.96]`, times `[0, wait, wait+0.11, PEAK_AT 0.5, 0.83, 1]`, eases `[linear, expo-out, easeInOut, easeInOut, linear]`. Прибрано `pulseLoop`/`counterLoop`/`PULSE`/`pulseTimes`/`pulseEases` — **пульс лише на тайлах** (transform), картинка масштабується разом з рамкою → сірих смуг не існує за побудовою, переповнення = 0 (scale ≤1 завжди), на піку мозаїка безшовна й рівно в контейнері.
 - Verify: lint ✓ build ✓; тимчасова Playwright-спека **3/3**: rest (t=1.46s) усі scale ∈[0.94,0.995] + opacity ≥0.99, peak (t=3.16s) ∈[0.99,1.001], повернення (t=5.06s) ≤0.975, width-ratio rest/peak ∈(0.93,0.985), bounding boxes тайлів ⊆ колонка на всіх фазах, fade (t=5.76s) усі <0.9 зі spread <0.15 (синхронно), повтор циклу (2-й peak t=9.36s), статика до loop, sticky, reduce → статика, mobile 375 → loop. Скріншоти rest/peak переглянуті вручну ✓. Спека/скріншоти/test-results/логи **видалені**; сервер :3000 зупинено; `tests/baseline.spec.ts` не чіпали. ⚠️ Спека: `getByRole("img")` матчить svg-іконки (Phosphor) → скоупити `{ name: /illustration/ }`; `.tap()` потребує `hasTouch` → `click()`.
-- **Статус: REOPENED** — чекаємо решту коментарів користувача («ще пропоментую»); тікет НЕ закривати без явного ок.
+- **Статус: підтверджено користувачем («так, зараз гарно») → тікет CLOSED (2026-09-26).** Зникання синхронне ✓, стагерований вхід ✓ — без змін.

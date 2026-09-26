@@ -1,4 +1,4 @@
-# HANDOFF — AnnaBer Rebuild (2026-09-26, Ticket 05 REOPENED — HowItWorks анімація ітерація-3 DONE, чекаємо решту коментарів → NEXT: Ticket 06 Testimonials+Faq+Footer)
+# HANDOFF — AnnaBer Rebuild (2026-09-26, Ticket 05 CLOSED → NEXT: Ticket 06 Testimonials+Faq+Footer)
 
 > **Живе в репо** (`HANDOFF.md:1`), не в `Temp` — щоб не зникав. Оновлюється після кожного тікета/сесії.
 
@@ -9,8 +9,8 @@
 - **Ticket 02** `02-impeccable-critique` — **CLOSED** (`02-impeccable-critique.md:30` DONE 2026-09-01, health 18/32, P0/P1/P2, `impeccable/critique/annaber-baseline-02.md`)
 - **Ticket 03** `03-hero-parallax-21st` — **PARTIAL (web/desktop done, mobile/tablet follow-up)** — canonical `src/components/sections/Hero.tsx:1`. **НЕ чіпати** (включно з formatting-only uncommitted правками — підтверджено користувачем як канонічні). 03 adaptive → окрема гриль-сесія пізніше.
 - **Ticket 04** `04-benefits-21st` — **CLOSED (2026-09-23)**, повний Resolution у `.issues/tickets-rebuild/04-benefits-21st.md:30` (gradient-card hand-replicate, DIRECT EDIT, Framer Motion hover, entrance прибрано «поки»).
-- **Ticket 05** `05-pricing-howitworks-21st` — **REOPENED (2026-09-26)**: Pricing DONE; HowItWorks DONE + анімація ітерація-3 DONE, але користувач «не поспішав би з закриттям» — чекаємо решту коментарів (**тікет НЕ закривати без явного ок**). Повні Resolutions — у `.issues/tickets-rebuild/05-pricing-howitworks-21st.md:26`.
-- **Далі:** спершу — решта коментарів користувача по 05 (анімація HowItWorks); після явного ок → Ticket 06 `06-testimonials-faq-footer-21st` (search → approval gate → get/hand-replicate). У 06 входить fix `text-primary-400` у Footer (токена немає).
+- **Ticket 05** `05-pricing-howitworks-21st` — **CLOSED (2026-09-26)**: Pricing + HowItWorks DONE + анімація HowItWorks ітерація-3 підтверджена користувачем («зараз гарно»). Повні Resolutions — у `.issues/tickets-rebuild/05-pricing-howitworks-21st.md:26`.
+- **Далі:** Ticket 06 `06-testimonials-faq-footer-21st` (search → approval gate → get/hand-replicate). У 06 входить fix `text-primary-400` у Footer (токена немає).
 
 ## Resolution 05 / Pricing (2026-09-25) — що зроблено
 
@@ -73,7 +73,7 @@
 Продовжуємо AnnaBer Rebuild — Ticket 06 (Testimonials + Faq + Footer via 21st). НЕ авансимось на 07.
 
 Спочатку прочитай (у такому порядку):
-1. HANDOFF.md (canonical resume — 05 REOPENED 2026-09-26: Pricing+HowItWorks DONE + анімація ітерація-3, закривати тільки після явного ок)
+1. HANDOFF.md (canonical resume — 05 CLOSED 2026-09-26, Pricing+HowItWorks DONE + анімація ітерація-3)
 2. .issues/map-annaber-rebuild.md (active wayfinder)
 3. .issues/tickets-rebuild/06-testimonials-faq-footer-21st.md (Question + Tasks + Resolution)
 4. PRODUCT.md + AGENTS.md (Design Contract, OD id: ba33a560-5e9c-4520-a6ef-ca19c36b798e, токени в src/app/tokens.css)
@@ -81,7 +81,7 @@
 
 ⚠️ MANDATORY CONSTRAINTS:
 1. ONE TICKET AT A TIME — STOP після кожного пункту, чекай go. NO AUTO-ADVANCE.
-2. НЕ чіпати 03 (Hero), 04 (Benefits), 05 (REOPENED: Pricing + HowItWorks — не чіпати, поки не дав явного ок на закриття), 07-10 — тільки секції 06.
+2. НЕ чіпати 03 (Hero), 04 (Benefits), 05 (закритий: Pricing + HowItWorks), 07-10 — тільки секції 06.
 3. BEFORE START питай: (a) grilling? (b) extra skills? (c) workflow?
 4. Workflow: DIRECT EDIT у канонічних файлах (прототип/page-SWITCH відхилено прецедентом по Benefits).
 5. 21st APPROVAL GATE: search --json → робочі лінки (поле url, формат https://21st.dev/c/<id> = 404!) → мій ok → get. Спершу npx @21st-dev/cli usage (очікується 2/2 get — по 05 витрачено 0; auth вже зроблений як russ485). Перевіряй ліцензію (MIT/Apache) через webfetch ДО get. Saved ref: Feature Bento https://21st.dev/c/18898. REJECTED — не пропонувати: gradient-card 5514, Thiings.co, 25362, 6247, 7260, 7091, 5115, 28540, 9906 (unknown), 26916/26891/19861 (no-license), 19863/26902 (вертикальні).
@@ -89,7 +89,7 @@
 7. Hero.tsx/03 — НЕ редагувати (незакомічені formatting-правки = канонічні).
 
 Стан на початок сесії:
-- 00/01/02 CLOSED; 03 PARTIAL (не чіпати); 04 CLOSED; 05 **REOPENED** — Pricing + HowItWorks DONE, анімація HowItWorks ітерація-3 DONE (діагноз iter-2: пульс на контейнері → переповнення + сіра смуга; iter-3: пульс туди-назад лише на тайлах 0.96↔1.0). Закрити 05 тільки після явного ок користувача. Усі прецеденти та rejected-списки — див. Resolution в HANDOFF.
+- 00/01/02 CLOSED; 03 PARTIAL (не чіпати); 04 CLOSED; 05 CLOSED — Pricing + HowItWorks DONE + анімація ітерація-3 (діагноз iter-2: пульс на контейнері → переповнення + сіра смуга; iter-3: пульс туди-назад лише на тайлах 0.96↔1.0; hand-replicate, legacy-чернетки, усі прецеденти та rejected-списки — див. Resolution в HANDOFF).
 - HowItWorks тепер: Variant A — ліворуч 3 step-button (активний border-primary-500/bg-white, sticky active, tap на mobile), справа tile-grid 4×4 (8 merged тайлів, одна картинка нарізана, `rounded-lg` 16px, без тексту), infinity-loop після першого hover/tap: cycle 6.2s (поява 0.68s+stagger → **hold 4.0s повністю видима, синхронно** → синхронний fade ≈1.05s), **пульс туди-назад лише на тайлах scale 0.96→1.0→0.96** (rest: клітки менші, геп ~12px; пік 1.0 = рівно в контейнері, ≤1 без переповнення; картинка масштабується з рамкою — без сірих смуг), зникання на 0.96, reduce → статика; локальні картинки public/howitworks/, frozen copy без крапок, без GSAP/gradient/CTA.
 - Known backlog: text-primary-400 у Footer (токена немає) → ВХОДИТЬ у 06 (Footer); LCP dev-hint (benefits image eager/priority) → 08; 03 adaptive → окрема гриль-сесія.
 - Контент: frozen copy з .issues/tickets-legacy/02-landing-page-content-copy.md — без переписування без мого ок.

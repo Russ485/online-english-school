@@ -68,7 +68,7 @@ Rebuild the AnnaBer landing page from scratch on the same product concept, but w
 | 02 | `tickets-rebuild/02-impeccable-critique.md` | CLOSED | 01 |
 | 03 | `tickets-rebuild/03-hero-parallax-21st.md` | PARTIAL — web/desktop done, mobile/tablet adaptive → follow-up | 02 |
 | 04 | `tickets-rebuild/04-benefits-21st.md` | CLOSED (2026-09-23, DIRECT EDIT, gradient-card hand-replicate) | 02 |
-| 05 | `tickets-rebuild/05-pricing-howitworks-21st.md` | PARTIAL — Pricing DONE (2026-09-25, hand-replicate 6247, no 21st get), HowItWorks NEXT | 03,04 |
+| 05 | `tickets-rebuild/05-pricing-howitworks-21st.md` | CLOSED (2026-09-26) — Pricing + HowItWorks DONE, анімація ітерація-3, hand-replicate 6247/9906, no 21st get | 03,04 |
 | 06 | `tickets-rebuild/06-testimonials-faq-footer-21st.md` | OPEN | 05 |
 | 07 | `tickets-rebuild/07-gsap-motion-pass.md` | OPEN | 06 |
 | 08 | `tickets-rebuild/08-impeccable-polish.md` | OPEN | 07 |

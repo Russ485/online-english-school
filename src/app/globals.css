@@ -11,3 +11,28 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+/* Testimonials marquee — adapted from 21st id 822 (MIT) */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee-track {
+  animation: marquee 60s linear infinite;
+}
+
+.group:hover .marquee-track,
+.group:active .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
