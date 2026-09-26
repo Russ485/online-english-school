@@ -2,7 +2,7 @@
 
 **Label:** wayfinder:task
 **Map:** map-annaber-rebuild.md
-**Status:** PARTIAL — Pricing DONE (2026-09-25), HowItWorks NEXT
+**Status:** REOPENED (2026-09-26) — Pricing DONE; HowItWorks анімація ітерація-3 DONE, чекаємо решту коментарів користувача («не поспішати з закриттям»)
 **Blocked by:** 03-hero-parallax-21st.md, 04-benefits-21st.md
 
 ## Question
@@ -25,7 +25,7 @@ Rebuild Pricing (3 tiers $29/$79/$149) and HowItWorks (3 steps) via 21st — Day
 
 ## Resolution
 
-**PARTIAL (2026-09-25) — Pricing DONE, HowItWorks NEXT (окрема сесія).**
+**CLOSED (2026-09-25) — Pricing DONE + HowItWorks DONE.**
 
 ### Pricing (DONE)
 
@@ -37,6 +37,23 @@ Rebuild Pricing (3 tiers $29/$79/$149) and HowItWorks (3 steps) via 21st — Day
 - Verify: lint✓ build✓; тимчасові Playwright-спеки (stagger proof, hover speed) — видалені.
 - Рішення: flip-card REJECTED; scale-on-hover REJECTED (lift досить); monthly/yearly toggle REJECTED; додаткові design-skills не потрібні.
 
-### HowItWorks (NEXT)
+### HowItWorks (DONE)
 
-- Окрема сесія: 1 search → approval gate → get/hand-replicate → direct edit `HowItWorks.tsx`. GSAP entrance замінити на Framer Motion (прецедент вище). Prompt у `HANDOFF.md`.
+- Workflow: DIRECT EDIT `src/components/sections/HowItWorks.tsx`; чернетка старої версії — `HowItWorks.legacy.tsx` (GSAP-варіант, не імпортується, повернення = 1 імпорт).
+- 21st: quota 2/2 **не витрачено (0 get усього по 05)**. 1 search → затверджено **hand-replicate концепції id 9906** (Connoisseur Stack Interactor, license `unknown` → get заборонений). REJECTED (не пропонувати): 19863/26902 (MIT, але вертикальні), 26916/26891/19861 (no-license) + попередній список (gradient-card 5514, Thiings.co, 25362, 6247, 7260, 7091, 5115, 28540).
+- **Затверджені рішення (користувач):** Variant A — ліворуч 3 step-`<button>` (icon + Step NN + title + description завжди видимі; активний: `border-primary-500 bg-white shadow-soft` + title `gray-900` + номер `accent-500`; неактивний: `border-gray-200 bg-gray-50` + title `gray-500` + номер `gray-400`; `border-2` константа — без layout shift); справа **tile-grid 4×4 (8 merged tiles), `gap-1.5`, `rounded-lg` (16px — перевірено по відео оригіналу, було `rounded-xl`), БЕЗ тексту поверх картинки**. Loop lifecycle: статика до **першого hover/tap** → `loopStarted` → нескінченний луп, **без зупинки на leave**; `useReducedMotion` → луп повністю вимкнений. Active **sticky** (останній наведений; default — крок 1); mobile — **tap на крок**; `aria-pressed`.
+- **Анімація (друга ітерація після рев'ю, затверджено користувачем):** Framer Motion, cycle `CYCLE=6.2s`: поява tile 0.68s + stagger `0.065×i` (opacity/scale keyframes `times [0, wait, wait+0.11, 0.83, 1]`, eases linear/easeIn `[0.16,1,0.3,1]`/linear/fade `[0.4,0,0.2,1]`) → **hold до `HOLD_END=0.83` (≈4.0s повністю видима, синхронно всіма — хвости циклів спільні, stagger лише у вікні появи)** → синхронне зникання ≈1.05s. Пульс контейнера `1.008` + **контр-масштаб `1/1.008` на `motion.img`** → картинка в пікселях нерухома; масштаб тайлів ≤1 завжди → геп 6px недоторканий (без overlap за побудовою). Пульс лише під час hold (`times [0,0.19,0.26,0.79,0.83]`). Ключ `${active}-${loopStarted}` → перший hover/tap робить remount (кросфейд 0.3s + pop-in). **REJECTED (перша ітерація):** рівномірні keyframes 2.6s (hold 0.65s), `delay i×0.16` (дрейф фаз), `scale 1.06` (overlap + деформація картинки).
+- Відео-верифікація оригіналу id 9906 (`videoUrl` з `npx @21st-dev/cli search "stack interactor"` → cdn.21st.dev/.../video.1787571259662.mp4, 6.2s): стан спокою статичний (diff ≈0 → пульс дрібний 0.8%), автoloop немає (перемикання ~0.5s на інтеракцію), радіус ≈16px ✓, геп ≈8–10px. ⚠️ Playwright Chromium seek зламаний для цього mp4 (`currentTime` скидається в 0, `fastSeek`/media-фрагменти не працюють) → тільки real-time відтворення + таймовані скріншоти (`animations: 'allow'`; element-скріншоти зависають на нескінченних анімаціях). Скріншоти hold/fade переглянуті вручну ✓.
+- Інші прецеденти: **Framer Motion** (GSAP імпорти/`registerPlugin`/`useEffect` прибрано); входи секції за прецедентом Pricing (two-element, ease `[0.16,1,0.3,1]`, `duration 0.75`, `delay 0.1+i×0.18`); кроки перемикаються `AnimatePresence` crossfade 0.3s; плитки-контейнери = кліпи `overflow-hidden` з inner-`<img>` у % -позиціях (`width: COLS/cs*100%` тощо) — одна картинка розрізана по тайлах. Прибрано: gradient-лінію (`via-accent-200`), CTA (нема у frozen copy). `motion.img` НЕ триггерить `@next/next/no-img-element` → eslint-disable-директиви прибрано (unused directive).
+- Картинки: **локально** `public/howitworks/step-01.jpg` (Google Calendar), `step-02.jpg` (відеодзвінок), `step-03.jpg` (дівчинка в навушниках) — Unsplash free, усі 3 візуально верифіковані; прелоад через `new Image()` в `useEffect`.
+- Copy: frozen дослівно з `.issues/tickets-legacy/02-landing-page-content-copy.md:89-95` (**без trailing periods** — канонічний copy-файл, старий компонент мав крапки).
+- HTML/ARIA: весь контент картки в `<button>` з `aria-pressed` (спан-типографіка, **без `h3`** — `button` не може містити heading), зображення `alt=""` + контейнер `role="img" aria-label`.
+- Verify: lint ✓ build ✓; тимчасова Playwright-спека (друга ітерація) **3/3**: radius=16px; статика до hover; hold ≥3.5s усі opacity≥0.99 (timestamp-driven, 11+ семплів); pulse: container scale 1.004–1.012, img 0.988–0.996, product 1±0.003; no-overlap (max intersection <1px²); fade на 5.7s (усі <0.9); repeat (2-й hold на 7.7s усі ≥0.99); sticky; reduce-статика; mobile tap ✓. ⚠️ `test.use({ reducedMotion: "reduce" })` у цій версії Playwright **ігнорується** → працює `page.emulateMedia({ reducedMotion: "reduce" })` перед `goto`. Спека/test-results/temp-папки **видалені**; `tests/baseline.spec.ts` не чіпали.
+
+### HowItWorks — анімація, ітерація 3 (2026-09-26, REOPENED)
+
+- **Діагноз ітерації-2 (рев'ю користувача):** пульс був накладений на КОНТЕЙНЕР (`pulseLoop` grid 1→1.008) + контр-масштаб картинки `counterLoop` (1/1.008) → (1) рамки тайлів на піку виходили за межі колонки ~2.5px (у ланцюжку ніде немає `overflow-hidden`); (2) пікселі фото лишались статичними, а рамки роз'їжджались назовні → по зовнішньому периметру просвічувала `bg-gray-100` смуга до ~5px («не налаштований оверлей»); (3) поява закінчувалась на scale 1 = одразу максимум, а пульс ішов ВИЩЕ максимуму → «з'являється вже збільшена».
+- **Затверджено (question tool):** форма пульсу **туди-назад** (0.96 → 1.0 → 0.96 у межах холду, зникання в малому стані), амплітуда **rest scale 0.96 → геп ~12px**. Зникання **синхронне** ✓ і стагерований вхід ✓ — схвалено, без змін (реверс-лічильник оригіналу — «забагато», REJECTED).
+- **Специфікація (cycle 6.2s / HOLD_END 0.83 / STAGGER 0.065 незмінні):** tile keyframes-6 — opacity `[0,0,1,1,1,0]`, scale `[APPEAR 0.93, 0.93, REST 0.96, 1, 0.96, 0.96]`, times `[0, wait, wait+0.11, PEAK_AT 0.5, 0.83, 1]`, eases `[linear, expo-out, easeInOut, easeInOut, linear]`. Прибрано `pulseLoop`/`counterLoop`/`PULSE`/`pulseTimes`/`pulseEases` — **пульс лише на тайлах** (transform), картинка масштабується разом з рамкою → сірих смуг не існує за побудовою, переповнення = 0 (scale ≤1 завжди), на піку мозаїка безшовна й рівно в контейнері.
+- Verify: lint ✓ build ✓; тимчасова Playwright-спека **3/3**: rest (t=1.46s) усі scale ∈[0.94,0.995] + opacity ≥0.99, peak (t=3.16s) ∈[0.99,1.001], повернення (t=5.06s) ≤0.975, width-ratio rest/peak ∈(0.93,0.985), bounding boxes тайлів ⊆ колонка на всіх фазах, fade (t=5.76s) усі <0.9 зі spread <0.15 (синхронно), повтор циклу (2-й peak t=9.36s), статика до loop, sticky, reduce → статика, mobile 375 → loop. Скріншоти rest/peak переглянуті вручну ✓. Спека/скріншоти/test-results/логи **видалені**; сервер :3000 зупинено; `tests/baseline.spec.ts` не чіпали. ⚠️ Спека: `getByRole("img")` матчить svg-іконки (Phosphor) → скоупити `{ name: /illustration/ }`; `.tap()` потребує `hasTouch` → `click()`.
+- **Статус: REOPENED** — чекаємо решту коментарів користувача («ще пропоментую»); тікет НЕ закривати без явного ок.
