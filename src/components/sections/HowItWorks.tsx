@@ -68,8 +68,10 @@ const PEAK_AT = 0.5;
 const APPEAR = 0.93;
 const REST = 0.96;
 
-const tileRest = { opacity: 1, scale: 1 };
-const tileHidden = { opacity: 0, scale: APPEAR };
+const clipInset = (v: number) => `inset(${((1 - v) / 2) * 100}% round 16px)`;
+
+const tileRest = { opacity: 1, clipPath: clipInset(1) };
+const tileHidden = { opacity: 0, clipPath: clipInset(APPEAR) };
 
 const tileLoop = (i: number) => {
   const wait = (STAGGER * i) / CYCLE;
@@ -81,7 +83,7 @@ const tileLoop = (i: number) => {
   };
   return {
     opacity: [0, 0, 1, 1, 1, 0],
-    scale: [APPEAR, APPEAR, REST, 1, REST, REST],
+    clipPath: [APPEAR, APPEAR, REST, 1, REST, REST].map(clipInset),
     transition,
   };
 };
