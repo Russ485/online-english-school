@@ -69,7 +69,7 @@ Rebuild the AnnaBer landing page from scratch on the same product concept, but w
 | 03 | `tickets-rebuild/03-hero-parallax-21st.md` | PARTIAL — web/desktop done, mobile/tablet adaptive → follow-up | 02 |
 | 04 | `tickets-rebuild/04-benefits-21st.md` | CLOSED (2026-09-23, DIRECT EDIT, gradient-card hand-replicate) | 02 |
 | 05 | `tickets-rebuild/05-pricing-howitworks-21st.md` | **CLOSED (2026-09-26)** — Pricing + HowItWorks DONE, анімація ітерація-3; REOPEN закрито: статичне зображення (варіант A clip-path mask), verify 2/2 (див. `## REOPEN` у тікеті) | 03,04 |
-| 06 | `tickets-rebuild/06-testimonials-faq-footer-21st.md` | **PARTIAL (2026-09-26)** — Testimonials DONE (get 822 MIT, quota 1/2); FAQ + Footer → наступна сесія | 05 |
+| 06 | `tickets-rebuild/06-testimonials-faq-footer-21st.md` | **PARTIAL (2026-09-27)** — Testimonials DONE (get 822 MIT) + FAQ DONE (get 25011 intentui MIT, quota 1/2); Footer → наступна сесія | 05 |
 | 07 | `tickets-rebuild/07-gsap-motion-pass.md` | OPEN | 06 |
 | 08 | `tickets-rebuild/08-impeccable-polish.md` | OPEN | 07 |
 | 09 | `tickets-rebuild/09-playwright-verification.md` | OPEN | 08 |

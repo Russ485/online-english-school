@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CaretDownIcon } from "@phosphor-icons/react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 const faqs = [
   {
@@ -36,48 +36,100 @@ const faqs = [
   },
 ];
 
+const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
+
 export function Faq() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const reduce = useReducedMotion();
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const entranceVariants = {
+    hidden: { opacity: 0, y: 40 },
+    shown: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: reduce
+        ? { duration: 0 }
+        : { duration: 0.75, ease, delay: 0.1 + i * 0.08 },
+    }),
+  };
 
   return (
     <section className="bg-white py-16 md:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
+        <motion.div
+          custom={0}
+          variants={entranceVariants}
+          initial="hidden"
+          whileInView="shown"
+          viewport={{ once: true, amount: 0.5 }}
+          className="text-center"
+        >
           <h2 className="font-[family-name:var(--font-display)] text-3xl font-semibold tracking-tight text-gray-900 md:text-4xl">
             Questions? We&apos;ve got answers
           </h2>
-        </div>
+        </motion.div>
 
-        <div className="mt-12 space-y-3">
-          {faqs.map((faq, index) => (
-            <div
-              key={faq.question}
-              className="rounded-xl border border-gray-200 transition-all duration-200 hover:border-primary-200"
-            >
-              <button
-                onClick={() =>
-                  setOpenIndex(openIndex === index ? null : index)
-                }
-                aria-expanded={openIndex === index}
-                className="flex w-full items-center justify-between p-5 text-left focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary-500"
+        <div className="mt-12 flex flex-col gap-2">
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+
+            return (
+              <motion.div
+                key={faq.question}
+                custom={index + 1}
+                variants={entranceVariants}
+                initial="hidden"
+                whileInView="shown"
+                viewport={{ once: true, amount: 0.3 }}
+                className={`rounded-xl border transition-colors duration-200 ${
+                  isOpen
+                    ? "border-primary-200 bg-primary-50"
+                    : "border-gray-200 bg-white hover:border-primary-200"
+                }`}
               >
-                <span className="font-medium text-gray-900">
-                  {faq.question}
-                </span>
-                <CaretDownIcon
-                  className={`h-5 w-5 flex-shrink-0 text-gray-500 transition-transform duration-200 ${
-                    openIndex === index ? "rotate-180" : ""
-                  }`}
-                  weight="bold"
-                />
-              </button>
-              {openIndex === index && (
-                <div className="px-5 pb-5 text-sm leading-relaxed text-gray-600">
-                  {faq.answer}
-                </div>
-              )}
-            </div>
-          ))}
+                <h3>
+                  <button
+                    type="button"
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    aria-expanded={isOpen}
+                    className={`flex w-full items-center justify-between gap-4 p-5 text-left focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary-500 ${
+                      isOpen ? "text-primary-600" : "text-gray-900"
+                    }`}
+                  >
+                    <span className="font-medium">{faq.question}</span>
+                    <span
+                      aria-hidden
+                      className={`relative flex h-6 w-6 shrink-0 items-center justify-center ${
+                        isOpen ? "text-primary-500" : "text-gray-500"
+                      }`}
+                    >
+                      <span
+                        className={`absolute h-[1.5px] w-2.5 rounded-full bg-current transition-transform duration-300 ${
+                          isOpen ? "rotate-0" : "rotate-90"
+                        }`}
+                      />
+                      <span className="absolute h-[1.5px] w-2.5 rounded-full bg-current" />
+                    </span>
+                  </button>
+                </h3>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: reduce ? 0 : 0.2, ease }}
+                      className="overflow-hidden"
+                    >
+                      <p className="px-5 pb-5 text-sm leading-relaxed text-gray-600">
+                        {faq.answer}
+                      </p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

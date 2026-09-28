@@ -1,4 +1,4 @@
-# HANDOFF — AnnaBer Rebuild (2026-09-26, Ticket 06 PARTIAL: Testimonials DONE → NEXT: FAQ + Footer; 05 REOPEN закрито — варіант A)
+# HANDOFF — AnnaBer Rebuild (2026-09-27, Ticket 06 PARTIAL: Testimonials + FAQ DONE → NEXT: Footer)
 
 > **Живе в репо** (`HANDOFF.md:1`), не в `Temp` — щоб не зникав. Оновлюється після кожного тікета/сесії.
 
@@ -10,8 +10,8 @@
 - **Ticket 03** `03-hero-parallax-21st` — **PARTIAL (web/desktop done, mobile/tablet follow-up)** — canonical `src/components/sections/Hero.tsx:1`. **НЕ чіпати** (включно з formatting-only uncommitted правками — підтверджено користувачем як канонічні). 03 adaptive → окрема гриль-сесія пізніше.
 - **Ticket 04** `04-benefits-21st` — **CLOSED (2026-09-23)**, повний Resolution у `.issues/tickets-rebuild/04-benefits-21st.md:30` (gradient-card hand-replicate, DIRECT EDIT, Framer Motion hover, entrance прибрано «поки»).
 - **Ticket 05** `05-pricing-howitworks-21st` — **CLOSED (2026-09-26)**: Pricing + HowItWorks DONE + анімація HowItWorks ітерація-3 + **REOPEN закрито (2026-09-26): статичне зображення — варіант A (clip-path mask на grid-cell, контент без трансформацій), верифіковано 2/2**. Повні Resolutions — у `.issues/tickets-rebuild/05-pricing-howitworks-21st.md:26` (REOPEN — секція `## REOPEN` наприкінці).
-- **Ticket 06** `06-testimonials-faq-footer-21st` — **PARTIAL (2026-09-26)**: **Testimonials DONE** (get 822 serafim MIT → quota **1/2**, маркі, DIRECT EDIT, verify 3/3). Resolution — секція `Resolution 06 / Testimonials` нижче.
-- **Далі:** Ticket 06, підпункт 2 — **FAQ** (search → approval gate → get/hand-replicate → DIRECT EDIT `Faq.tsx`), потім STOP → Footer (за ок). У 06 входить fix `text-primary-400` у Footer (токена немає) + дрейф copy (frozen: лінк **Contact**, без «Learning platform»).
+- **Ticket 06** `06-testimonials-faq-footer-21st` — **PARTIAL (2026-09-27)**: **Testimonials DONE** (get 822 serafim MIT → quota 1/2) + **FAQ DONE** (get 25011 intentui MIT → quota **1/2 get лишився**, reset 2026-09-28). Resolutions — секції `Resolution 06 / Testimonials` та `Resolution 06 / FAQ` нижче.
+- **Далі:** Ticket 06, підпункт 3 — **Footer** (hand-replicate/фікси, скоріш без get): fix `text-primary-400` (токена немає, `Footer.tsx:44`) + дрейф copy (frozen: лінк **Contact**, без «Learning platform» — `Footer.tsx:21` навпаки). Після Footer → 06 CLOSED.
 
 ## Resolution 05 / Pricing (2026-09-25) — що зроблено
 
@@ -48,6 +48,16 @@
 - **⚠️ НОВИЙ ПРЕЦЕДЕНТ (гідратизація × reduce):** framer-motion v13 `useReducedMotion()` на клієнті повертає `true`, але **reduce-залежні атрибути НЕ застосовуються після гідратизації** — сервер (SSR/prerender) рендерив `reduce=null` → className/style відрізняються → **React ігнорує attribute-mismatch** (лише текстові mismatch'и кидають) → DOM лишається серверним. Діагностика: `matchMedia` ✓ true, хук ✓ true, а клас на місці. **Правило:** reduce-класи НЕ давати в атрибути — глушити через **CSS media query** (перевірено: `animationName: none`); entrance при reduce — `initial="hidden"` (однаковий з SSR) + `transition: { duration: 0 }`.
 - **Verify:** lint ✓ build ✓; тимчасова Playwright-спека **3/3**: рух (transform міняється за 800мс), hover → `paused` → leave → `running`, reduce → `animationName: none` + heading visible + `opacity 1`, mobile 375 → `scrollWidth ≤ 376`, ширина картки 320, 12 карток. Скріншоти desktop/mobile переглянуті вручну ✓. Спека/скріншоти/test-results **видалені**, сервер :3000 зупинено, `tests/baseline.spec.ts` не чіпали. ⚠️ Playwright: `boundingBox().width` = 319.99999 (subpixel) → assert з tolerance.
 
+## Resolution 06 / FAQ (2026-09-27) — що зроблено
+
+- **21st:** quota на старт сесії **2/2** (денний reset — get 822 був у попередній день, очікування «1/2» у промпті було застарілим) → **get 25011** intentui `disclosure-group` (**MIT**, webfetch ліцензії ДО get) → **1/2 лишився** (reset 2026-09-28). Робочий лінк: `https://21st.dev/@intentui/components/disclosure-group`. GATE: користувач дав 3 лінки → мій став-лення → обрано **#3 intentui** («найбільше подобається з точки зору анімації/логіки»), get схвалений. Власний search теж зроблено (free) — додаткові accordion-кандидати не знадобились.
+- **REJECTED (не пропонувати):** prebuiltui `faq-sections` (**license unknown** → get заборонений; плюс консенсус: зображення в FAQ зайве — frozen content map без картинки, «no stock photos»), scrollxui `frequently-asked-questions-with-accordion` (MIT, але word-by-word blur-in headline over-the-top — «більш-менш» від користувача).
+- **Workflow:** DIRECT EDIT `src/components/sections/Faq.tsx`; стара версія → `Faq.legacy.tsx` (не імпортується, повернення = 1 імпорт). Залежності intentui **всі викинуті**: react-aria-components (Disclosure/Button/Heading/composeRenderProps), tailwind-merge (`twMerge`/`twJoin`), `cx` — замінені на наш `useState` + `aria-expanded` (він уже був) + Framer Motion.
+- **Дизайн:** single-open accordion, **default — перший рядок розкритий** (як demo intentui). Рядки `flex flex-col gap-2`, `rounded-xl border transition-colors duration-200`; відкритий: `border-primary-200 bg-primary-50` + питання `text-primary-600` + індикатор `text-primary-500`; закритий: `border-gray-200 bg-white hover:border-primary-200`. **Індикатор plus/minus** (intentui-прецедент): два spans `h-[1.5px] w-2.5`, поворотний `rotate-90→rotate-0` + постійний горизонтальний = «+» закритий / «−» відкритий (CSS `transition-transform duration-300`). Рядок: `<h3><button type="button">` — heading зовні button (valid content model, прецедент HowItWorks). Focus-visible ring `outline-2 outline-offset-[-2px] primary-500` (без змін).
+- **Анімації:** панель — `AnimatePresence initial={false}` + `height: 0 → auto` **0.2s** ease `[0.16,1,0.3,1]` (прецедент HowItWorks; reduce → `duration: 0`); entrance — `hidden→shown` + `custom` stagger `0.1 + i×0.08` (прецедент Testimonials: `initial="hidden"` завжди, reduce → `transition { duration: 0 }`, reduce-класи НЕ в атрибути). Copy — frozen 6 питань дослівно ✓ (`02-copy:117-137`).
+- **Verify:** lint ✓ build ✓; тимчасова Playwright-спека **4/4**: default-open + single-toggle (aria-expanded, другий клік — close) + індикатор `rotate` 0°/90°; **height growth** (in-page rAF-самплер: ріст від ~0, `min < max−10`, max >30); **reduce** (`emulateMedia` перед goto: entrance миттєвий, відповідь visible <300мс, висота стабільна, `transitionDuration <0.01s` від tokens.css guard); mobile 375 `scrollWidth ≤376` + toggle ✓. Скріншоти open-state desktop/mobile переглянуті вручну ✓ (tint/синій/«−» на місці). Спеки/скріншоти/test-results **видалені**, сервер :3000 зупинено, `tests/baseline.spec.ts` не чіпали.
+- **⚠️ Нові gotcha (Playwright/Tailwind v4):** (1) **`rotate-0` компілюється в `rotate: none`** (індивідуальна CSS-властивість, не `transform`) → у спеках читати `getComputedStyle().rotate` і радити `none → 0` (`parseFloat("none")` = NaN); (2) `AnimatePresence` анімує **parent-панель** (`overflow-hidden`), тому `boundingBox()` на внутрішньому `<p>` постійний → висоту міряти на батькові, найкраще in-page rAF-самплер (без CDP-roundtrip затримок).
+
 ## Відомі незакриті місця (мимо поточного тікета)
 
 1. `text-primary-400` у Footer (токена немає) → **Ticket 06 (Footer, після FAQ)**.
@@ -74,41 +84,46 @@
 - Контент секцій — frozen copy з `.issues/tickets-legacy/02-landing-page-content-copy.md` (без переписування без ок)
 - Мікроанімації секцій — Framer Motion; GSAP — лише Hero scrub + Ticket 07
 
-## Prompt для наступної сесії (Ticket 06, підпункт 2: FAQ)
+## Prompt для наступної сесії (Ticket 06, підпункт 3: Footer)
 
 Скопіюй:
 
 ```
-Продовжуємо AnnaBer Rebuild — Ticket 06, підпункт 2: FAQ (Footer — після мого ок, окремий STOP). НЕ авансимось на 07. Testimonials уже DONE.
+Продовжуємо AnnaBer Rebuild — Ticket 06, підпункт 3: Footer (останній у 06; після нього 06 CLOSED). НЕ авансимось на 07. Testimonials + FAQ DONE.
 
 Спочатку прочитай (у такому порядку):
-1. HANDOFF.md (canonical resume — 06 PARTIAL: Testimonials DONE 2026-09-26, quota 1/2; новий прецедент «гідратизація × reduce»)
+1. HANDOFF.md (canonical resume — 06 PARTIAL: Testimonials DONE 2026-09-26 + FAQ DONE 2026-09-27; quota 1/2 get, reset 2026-09-28; секції Resolution 06 / Testimonials та Resolution 06 / FAQ)
 2. .issues/map-annaber-rebuild.md (active wayfinder)
-3. .issues/tickets-rebuild/06-testimonials-faq-footer-21st.md (Status PARTIAL + Resolution: Testimonials DONE → NEXT FAQ)
+3. .issues/tickets-rebuild/06-testimonials-faq-footer-21st.md (Status PARTIAL + Resolution: FAQ DONE → NEXT Footer)
 4. PRODUCT.md + AGENTS.md (Design Contract, OD id: ba33a560-5e9c-4520-a6ef-ca19c36b798e, токени в src/app/tokens.css)
-5. src/components/sections/Testimonials.tsx + Pricing.tsx (ГОТОВІ reference-и: Framer Motion entrance/hover + маркі-прецедент) + чинні файли Faq.tsx / Footer.tsx
+5. src/components/sections/Footer.tsx (чинний) + reference-и Testimonials.tsx / Faq.tsx (entrance-прецеденти)
 
 ⚠️ MANDATORY CONSTRAINTS:
-1. ONE TICKET AT A TIME — STOP після FAQ, чекай go на Footer. NO AUTO-ADVANCE.
+1. ONE TICKET AT A TIME — STOP після Footer, чекай go на 06 CLOSED / 07. NO AUTO-ADVANCE.
 2. НЕ чіпати 03 (Hero), 04 (Benefits), 05 (закрито), 07-10 — тільки секція 06.
 3. BEFORE START питай: (a) grilling? (b) extra skills? (c) workflow? (очікувано: ні / ні / DIRECT EDIT).
 4. Workflow: DIRECT EDIT у канонічних файлах (прототип/page-SWITCH відхилено прецедентом по Benefits).
-5. 21st APPROVAL GATE: спершу `npx @21st-dev/cli usage` (очікується **1/2 get** — по 06 витрачено 1: get 822 Testimonials; auth як russ485). search --json → робочі лінки (поле url, формат https://21st.dev/c/<id> = 404!) → мій ok → webfetch ліцензія (MIT/Apache) ДО get. Saved ref: Feature Bento https://21st.dev/c/18898. REJECTED — не пропонувати: gradient-card 5514, Thiings.co, 25362, 6247, 7260, 7091, 5115, 28540, 9906 (unknown), 26916/26891/19861 (no-license), 19863/26902 (вертикальні), 19874/22087/22106 (no-license), 19099/1434/926/26920 (відхилені на користь 822).
-6. Playwright — тільки тимчасові verify-спеки (писати → run → видалити). НЕ чіпати tests/baseline.spec.ts. ⚠️ test.use({ reducedMotion }) ігнорується у цій версії → page.emulateMedia({ reducedMotion: "reduce" }) перед goto.
+5. 21st APPROVAL GATE: спершу `npx @21st-dev/cli usage` (очікується **1/2 get**, reset 2026-09-28 — по 06 витрачено get 822 + get 25011). Footer, скоріш за все, — фікси/hand-replicate без get. Якщо get: search --json → робочі лінки (поле url, формат https://21st.dev/c/<id> = 404!) → мій ok → webfetch ліцензія (MIT/Apache) ДО get. Saved ref: Feature Bento https://21st.dev/c/18898. REJECTED — не пропонувати: gradient-card 5514, Thiings.co, 25362, 6247, 7260, 7091, 5115, 28540, 9906 (unknown), 26916/26891/19861 (no-license), 19863/26902 (вертикальні), 19874/22087/22106 (no-license), 19099/1434/926/26920 (відхилені на користь 822), prebuiltui faq-sections (unknown), scrollxui faq-accordion (blur-in over-the-top).
+6. Playwright — тільки тимчасові verify-спеки (писати → run → видалити). НЕ чіпати tests/baseline.spec.ts. ⚠️ test.use({ reducedMotion }) ігнорується → page.emulateMedia({ reducedMotion: "reduce" }) перед goto. ⚠️ Tailwind v4: rotate-0 = rotate: none → читати getComputedStyle().rotate.
 7. Hero.tsx/03 — НЕ редагувати (незакомічені formatting-правки = канонічні).
-8. Контент FAQ — frozen copy 6 питань (`.issues/tickets-legacy/02-landing-page-content-copy.md:117-137`) без переписування без мого ок.
-9. Прецедент Testimonials (гідратизація × reduce): framer `useReducedMotion()` НЕ оновлює reduce-залежні атрибути після гідратизації (React ігнорує attribute-mismatch) → **reduce-класи НЕ давати в атрибути** (глушити через CSS media query); entrance при reduce = `initial="hidden"` + `transition { duration: 0 }`.
+8. Контент Footer — frozen copy (`.issues/tickets-legacy/02-landing-page-content-copy.md:141-168`) без переписування без мого ок.
+9. Прецедент гідратизація × reduce: reduce-класи НЕ давати в атрибути (глушити через CSS media query); entrance при reduce = `initial="hidden"` + `transition { duration: 0 }`.
+
+Scope Footer (з Resolution 06 / FAQ — NEXT):
+- fix `text-primary-400` (Footer.tsx:44 — токена немає в tokens.css → заміна на існуючий токен, на твій розсуд/питання)
+- дрейф copy: frozen links (02-copy:145-151) = About us, Pricing, For parents, For teachers, Blog, **Contact** → прибрати «Learning platform» (Footer.tsx:21), додати Contact
+- опційно: entrance/hover Framer Motion за прецедентом (reduce: initial="hidden" + duration 0)
 
 Стан на початок сесії:
-- 00/01/02 CLOSED; 03 PARTIAL (не чіпати); 04 CLOSED; 05 CLOSED (REOPEN закрито 2026-09-26: статичне зображення, варіант A); 06 **PARTIAL** — Testimonials DONE (get 822 MIT, маркі 60s auto + pause on hover, `Testimonials.legacy.tsx`, ключі в `globals.css`, verify 3/3).
-- У 06 лишається: **FAQ** (підпункт 2) → STOP → **Footer** (за ок): fix `text-primary-400` (токена немає) + дрейф copy (frozen: лінк **Contact**, без «Learning platform» — `Footer.tsx:21,26` навпаки).
-- Known backlog: LCP dev-hint (benefits image eager/priority) → 08; 03 adaptive → окрема гриль-сесія.
+- 00/01/02 CLOSED; 03 PARTIAL (не чіпати); 04 CLOSED; 05 CLOSED; 06 **PARTIAL** — Testimonials DONE + FAQ DONE (get 25011 intentui MIT, single-open accordion, default перший рядок, plus/minus, AnimatePresence height 0.2s, `Faq.legacy.tsx`, verify 4/4).
+- У 06 лишається тільки **Footer** (підпункт 3) → після нього 06 CLOSED.
+- Known backlog: LCP dev-hint (benefits image) → 08; 03 adaptive → окрема гриль-сесія.
 - Контент: frozen copy з .issues/tickets-legacy/02-landing-page-content-copy.md — без переписування без мого ок.
 
 Після прочитання:
 - Проговори 3-5 пунктів що бачиш у коді (перевірка HANDOFF).
-- Потім запитай: "Що робимо в FAQ?" і ЧЕКАЙ мої зауваження — без мого go не правити.
-- Далі за прецедентом: search → approval gate → get/hand-replicate → direct edit → lint+build → temp verify → STOP.
+- Потім запитай: "Що робимо в Footer?" і ЧЕКАЙ мої зауваження — без мого go не правити.
+- Далі за прецедентом: (за потреби search → approval gate) → direct edit → lint+build → temp verify → STOP.
 
 Працюй українською, техтерміни English. Build+lint після змін, temp-спеки видаляти, STOP після кожного пункту.
 ```
