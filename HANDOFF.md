@@ -1,4 +1,4 @@
-# HANDOFF — AnnaBer Rebuild (2026-09-27, Ticket 06 PARTIAL: Testimonials + FAQ DONE → NEXT: Footer)
+# HANDOFF — AnnaBer Rebuild (2026-09-28, Ticket 06: Testimonials + FAQ + Footer DONE → чекає go на 06 CLOSED)
 
 > **Живе в репо** (`HANDOFF.md:1`), не в `Temp` — щоб не зникав. Оновлюється після кожного тікета/сесії.
 
@@ -10,8 +10,8 @@
 - **Ticket 03** `03-hero-parallax-21st` — **PARTIAL (web/desktop done, mobile/tablet follow-up)** — canonical `src/components/sections/Hero.tsx:1`. **НЕ чіпати** (включно з formatting-only uncommitted правками — підтверджено користувачем як канонічні). 03 adaptive → окрема гриль-сесія пізніше.
 - **Ticket 04** `04-benefits-21st` — **CLOSED (2026-09-23)**, повний Resolution у `.issues/tickets-rebuild/04-benefits-21st.md:30` (gradient-card hand-replicate, DIRECT EDIT, Framer Motion hover, entrance прибрано «поки»).
 - **Ticket 05** `05-pricing-howitworks-21st` — **CLOSED (2026-09-26)**: Pricing + HowItWorks DONE + анімація HowItWorks ітерація-3 + **REOPEN закрито (2026-09-26): статичне зображення — варіант A (clip-path mask на grid-cell, контент без трансформацій), верифіковано 2/2**. Повні Resolutions — у `.issues/tickets-rebuild/05-pricing-howitworks-21st.md:26` (REOPEN — секція `## REOPEN` наприкінці).
-- **Ticket 06** `06-testimonials-faq-footer-21st` — **PARTIAL (2026-09-27)**: **Testimonials DONE** (get 822 serafim MIT → quota 1/2) + **FAQ DONE** (get 25011 intentui MIT → quota **1/2 get лишився**, reset 2026-09-28). Resolutions — секції `Resolution 06 / Testimonials` та `Resolution 06 / FAQ` нижче.
-- **Далі:** Ticket 06, підпункт 3 — **Footer** (hand-replicate/фікси, скоріш без get): fix `text-primary-400` (токена немає, `Footer.tsx:44`) + дрейф copy (frozen: лінк **Contact**, без «Learning platform» — `Footer.tsx:21` навпаки). Після Footer → 06 CLOSED.
+- **Ticket 06** `06-testimonials-faq-footer-21st` — **PARTIAL (усі 3 підпункти DONE, чекає go на CLOSED)**: **Testimonials DONE** (2026-09-26, get 822 serafim MIT) + **FAQ DONE** (2026-09-27, get 25011 intentui MIT) + **Footer DONE** (2026-09-28, **0 get** — typewriter-назва hand-replicate + **v2 гігантський outline ANNABER + v3 правки користувача (прозорий stroke 30%, text-left, 16.5vw/12.5rem, bottom-based позиціонування), verify 4/4**, квота 2/2 не витрачена). Resolutions — секції `Resolution 06 / Testimonials`, `Resolution 06 / FAQ`, `Resolution 06 / Footer` нижче.
+- **Далі:** чекаю **go на 06 CLOSED** → далі Ticket 07 (GSAP motion pass). NO AUTO-ADVANCE.
 
 ## Resolution 05 / Pricing (2026-09-25) — що зроблено
 
@@ -58,12 +58,23 @@
 - **Verify:** lint ✓ build ✓; тимчасова Playwright-спека **4/4**: default-open + single-toggle (aria-expanded, другий клік — close) + індикатор `rotate` 0°/90°; **height growth** (in-page rAF-самплер: ріст від ~0, `min < max−10`, max >30); **reduce** (`emulateMedia` перед goto: entrance миттєвий, відповідь visible <300мс, висота стабільна, `transitionDuration <0.01s` від tokens.css guard); mobile 375 `scrollWidth ≤376` + toggle ✓. Скріншоти open-state desktop/mobile переглянуті вручну ✓ (tint/синій/«−» на місці). Спеки/скріншоти/test-results **видалені**, сервер :3000 зупинено, `tests/baseline.spec.ts` не чіпали.
 - **⚠️ Нові gotcha (Playwright/Tailwind v4):** (1) **`rotate-0` компілюється в `rotate: none`** (індивідуальна CSS-властивість, не `transform`) → у спеках читати `getComputedStyle().rotate` і радити `none → 0` (`parseFloat("none")` = NaN); (2) `AnimatePresence` анімує **parent-панель** (`overflow-hidden`), тому `boundingBox()` на внутрішньому `<p>` постійний → висоту міряти на батькові, найкраще in-page rAF-самплер (без CDP-roundtrip затримок).
 
+## Resolution 06 / Footer (2026-09-28) — що зроблено
+
+- **21st:** **0 get** (квота 2/2 після reset 2026-09-28 — не витрачена). GATE: 2 референси від користувача → `animated-wave-footer` arihantcodes (**MIT**) + `hover-footer` mdafsarx (**unknown license → get заборонений**). **Hand-replicate без get** (затверджено): newsletter **REJECTED** (поза frozen copy), фон-SVG/хвиля **REJECTED** (фічою стає анімація назви; без автоцикл-винятку). REJECTED (додати до списків): `hover-footer` mdafsarx (unknown license).
+- **Workflow:** DIRECT EDIT `src/components/sections/Footer.tsx`, legacy-файл не створювався (зміни адитивні). Extra skills — не потрібні (підтверджено).
+- **Дизайн:** `text-primary-400 → text-primary-500` (#3B82F6, AA 4.9:1 на gray-900); copy: − «Learning platform», + «Contact» у **Company** (About us, Pricing, Blog, Contact / For parents, For teachers), frozen дослівно; **typewriter-назва**: 7 letter-span `inline-block overflow-hidden`, framer `width 0 → "auto"` (`duration 0.14`, `delay 0.35+i×0.1`), тригер `useInView(brand-column, once, amount 0.5)` (НЕ на літерах — zero-width IO), reduce → `duration 0 + delay 0`; **hover**: CSS `group-hover:-translate-y-1` per-letter, `transitionDelay i×30ms` (reduce-guard авто від tokens.css); entrance колонок Faq-прецедент + `transition-colors duration-200` на лінках.
+- **Verify:** lint ✓ build ✓; тимчасова спека **4/4** (typewriter rAF growth + Ber `rgb(59,130,246)` + copy 4/2 + hover −4px/revert + reduce миттєво/`transitionDuration <0.01s` + mobile 375 `scrollWidth ≤376` + усі колонки opacity 1). Скріншоти desktop/mobile top+bottom переглянуті вручну ✓. Спека/debug/скріншоти/test-results видалені, :3000 зупинено, `baseline.spec.ts` не чіпали.
+- **⚠️ Gotcha (нові):** (1) Tailwind v4 `-translate-y-1` → у спеках читати `getComputedStyle().translate` **поряд із** `transform`; (2) Playwright `toBeVisible` **ігнорує `opacity`** → entrance перевіряти computed opacity на motion-батьках; (3) element-скріншот footer (904px > viewport) кліпиться Playwright → viewport-скріншоти top/bottom.
+- **Ітерація Footer v2 (2026-09-28) — гігантський outline-напис, verify 3/3 + lint/build ✓:** вибір користувача — outline + fill на hover кожної літери + ANNABER uppercase + typewriter на гігантському (малий wordmark → статичний + hover-lift). `text-[min(20vw,16rem)]` transparent + `[-webkit-text-stroke:2px_primary-500]` + hover fill; typewriter `width 0→auto` 0.16s delay 0.35+i×0.1 на `useInView(giantRef)`; `translate-y-[0.12em] lg:translate-y-[0.35em]` (lg — без перекриття лінок); grid/bar `pointer-events-none` + лінки `pointer-events-auto`; bar entrance custom 4 поверх літер (стиль hover-footer, свідомо). Піксель-діагностика: штрихи від y644(1280)/y894(768)/y603(375), 0 синіх у зоні Contact. Спеки/скріншоти/test-results видалені, :3000 зупинено.
+- **⚠️ Gotcha v2:** (4) reduce/typewriter тести — `waitForTimeout(600)` після `goto` перед скролом (інакше гідратація scrollHeight неточний → useInView не спрацьовує); (5) footer < viewport → scroll clamp (top/bottom скріншоти ідентичні); (6) Read-інструмент повертав застаріле зображення перечитаних PNG → верифікувати піксельним аналізом (System.Drawing) або crop у новий файл.
+- **Ітерація Footer v3 (2026-09-28) — зауваження користувача, verify 4/4 + lint/build ✓:** (1) літери обрізані знизу; (2) центрування → **ліворуч** (`text-left` + `pl-4 sm:pl-6 lg:pl-8`); (3) нав'язливість/перекриття соцмереж → база **прозора** `[-webkit-text-stroke:2px_rgb(59,130,246,0.3)]`, hover-fill = повний `--color-primary-500` (question tool: база 30%, fill 100%). Кегль `min(20vw,16rem) → min(16.5vw,12.5rem)`. **Позиціонування layout-based:** translate прибрано (`-webkit-text-stroke` ink ігнорує CSS `translate` — див. gotcha 7), натомість гігант-div `bottom-0 lg:bottom-[-36px]` → фінальний піксель-замір (з `document.fonts.ready`): **ink 564..707**, прогалина до Contact 12.5px, запас знизу 12.5px, 0 синіх у зоні Contact / y≥712; без fonts.ready — 554..697 (теж без накладання/обрізки). Спеки/скріншоти/test-results видалені, :3000 зупинено, `baseline.spec.ts` не чіпали.
+- **⚠️ Gotcha v3:** (7) **CSS `translate` на батьківському span пересуває бокси/фон, але `-webkit-text-stroke` ink малюється без трансформа** → `translate-y-*` для гіганта неефективний, позиціонувати через `bottom-[-Npx]` (layout); (8) `test-results` очищається кожним запуском Playwright — старі піксельні заміри не перечитувати; (9) метрики ink залежать від `document.fonts.ready` — у спеках чекати перед мірянням/скріншотом (інакше ~10px drift); (10) `IsBlue`-фільтр ловить і gray-800 border + AA-текст (false positive) → повносмугові лінки окремим кольором, текстова зона — поріг ≥30 і x≥140 поза бренд-колонкою.
+
 ## Відомі незакриті місця (мимо поточного тікета)
 
-1. `text-primary-400` у Footer (токена немає) → **Ticket 06 (Footer, після FAQ)**.
-2. **LCP dev-hint:** браузер пише «Image `/benefits/video_game_3d.png` detected as LCP → add `loading="eager"`». Benefits поза fold (Hero 180vh), вплив мінімальний → **Ticket 08 (polish):** визначити реальний LCP (скоріш засе Hero-зображення → йому `priority`), не чіпати зараз (04 закритий, 03 не чіпати).
-3. 03 adaptive (mobile/tablet Hero) → окрема гриль-сесія.
-4. Hero.tsx uncommitted formatting (Prettier) — закомічити разом з docs.
+1. **LCP dev-hint:** браузер пише «Image `/benefits/video_game_3d.png` detected as LCP → add `loading="eager"`». Benefits поза fold (Hero 180vh), вплив мінімальний → **Ticket 08 (polish):** визначити реальний LCP (скоріш засе Hero-зображення → йому `priority`), не чіпати зараз (04 закритий, 03 не чіпати).
+2. 03 adaptive (mobile/tablet Hero) → окрема гриль-сесія.
+3. Hero.tsx uncommitted formatting (Prettier) — закомічити разом з docs.
 
 ## Що побудовано (2026-09-04, не змінилось)
 
@@ -84,7 +95,7 @@
 - Контент секцій — frozen copy з `.issues/tickets-legacy/02-landing-page-content-copy.md` (без переписування без ок)
 - Мікроанімації секцій — Framer Motion; GSAP — лише Hero scrub + Ticket 07
 
-## Prompt для наступної сесії (Ticket 06, підпункт 3: Footer)
+## Prompt для наступної сесії (Ticket 06, підпункт 3: Footer) — ВИКОРИСТАНО (2026-09-28, Footer DONE)
 
 Скопіюй:
 
@@ -126,6 +137,26 @@ Scope Footer (з Resolution 06 / FAQ — NEXT):
 - Далі за прецедентом: (за потреби search → approval gate) → direct edit → lint+build → temp verify → STOP.
 
 Працюй українською, техтерміни English. Build+lint після змін, temp-спеки видаляти, STOP після кожного пункту.
+```
+
+## Prompt для наступної сесії (go: 06 CLOSED → Ticket 07)
+
+Скопіюй:
+
+```
+Продовжуємо AnnaBer Rebuild — Ticket 06 усі DONE (Footer DONE 2026-09-28): закриваємо 06, далі Ticket 07 (GSAP motion pass). НЕ авансимось на 08.
+
+Спочатку прочитай (у такому порядку):
+1. HANDOFF.md (Resolutions 05/06 + gotcha; квота 2/2 get, щоденний reset)
+2. .issues/map-annaber-rebuild.md (active wayfinder)
+3. .issues/tickets-rebuild/06-testimonials-faq-footer-21st.md (Footer DONE → Status CLOSED + map row CLOSED після мого go)
+4. .issues/tickets-rebuild/07-gsap-motion-pass.md + PRODUCT.md + AGENTS.md
+
+⚠️ MANDATORY: ONE TICKET AT A TIME, NO AUTO-ADVANCE. BEFORE START питай: (a) grilling? (b) extra skills? (c) workflow? 21st APPROVAL GATE: usage → search --json → робочі лінки (поле url, формат /c/<id> = 404) → мій ok → webfetch ліцензія ДО get. Playwright тільки temp-спеки (page.emulateMedia({ reducedMotion: "reduce" }) перед goto; Tailwind v4 — читати getComputedStyle().translate/.rotate). Hero/03, 04, 05 — НЕ чіпати. Frozen content без переписування.
+
+Стан: 00/01/02 CLOSED; 03 PARTIAL (не чіпати); 04/05 CLOSED; 06 — усі DONE (Testimonials+FAQ+Footer), чекає закриття; 07-10 OPEN. Known backlog: LCP dev-hint → 08; 03 adaptive → окрема гриль-сесія.
+
+Працюй українською, техтерміни English.
 ```
 
 ## Prompt для сесії: Ticket 05 REOPEN (ВИКОРИСТАНО — закрито 2026-09-26, варіант A)
