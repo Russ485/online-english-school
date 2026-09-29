@@ -69,8 +69,8 @@ Rebuild the AnnaBer landing page from scratch on the same product concept, but w
 | 03 | `tickets-rebuild/03-hero-parallax-21st.md` | PARTIAL — web/desktop done, mobile/tablet adaptive → follow-up | 02 |
 | 04 | `tickets-rebuild/04-benefits-21st.md` | CLOSED (2026-09-23, DIRECT EDIT, gradient-card hand-replicate) | 02 |
 | 05 | `tickets-rebuild/05-pricing-howitworks-21st.md` | **CLOSED (2026-09-26)** — Pricing + HowItWorks DONE, анімація ітерація-3; REOPEN закрито: статичне зображення (варіант A clip-path mask), verify 2/2 (див. `## REOPEN` у тікеті) | 03,04 |
-| 06 | `tickets-rebuild/06-testimonials-faq-footer-21st.md` | **PARTIAL (2026-09-28)** — Testimonials DONE (get 822 MIT) + FAQ DONE (get 25011 intentui MIT) + Footer DONE **v2+** (гігантський outline ANNABER, 0 get; v3: прозорий stroke 30%, text-left, 16.5vw, layout-based позиціонування, verify 4/4); чекає go на CLOSED | 05 |
-| 07 | `tickets-rebuild/07-gsap-motion-pass.md` | OPEN | 06 |
+| 06 | `tickets-rebuild/06-testimonials-faq-footer-21st.md` | **CLOSED (2026-09-28)** — Testimonials DONE (get 822 MIT) + FAQ DONE (get 25011 intentui MIT) + Footer DONE **v3** (гігантський outline ANNABER, 0 get; прозорий stroke 30%, text-left, 16.5vw, layout-based позиціонування, verify 4/4) | 05 |
+| 07 | `tickets-rebuild/07-gsap-motion-pass.md` | **CLOSED (2026-09-28)** — гібрид: Hero `useGSAP`-уніфікація (matchMedia-guard) + Benefits ScrollTrigger reveal DESIGN 7.2 (`start top 72%` власний вибір); FM entrances у Pricing/HowItWorks лишились; verify 4/4, 0 get | 06 |
 | 08 | `tickets-rebuild/08-impeccable-polish.md` | OPEN | 07 |
 | 09 | `tickets-rebuild/09-playwright-verification.md` | OPEN | 08 |
 | 10 | `tickets-rebuild/10-code-review.md` | OPEN | 09 |

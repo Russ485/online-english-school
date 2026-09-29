@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import { ArrowRightIcon, PlayIcon } from "@phosphor-icons/react";
 import {
@@ -13,6 +13,9 @@ import {
 } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 // HERO — canonical (ex-HeroFinal v2.3). Adapted from 21st 1503 Hero Parallax.
 // Web/desktop done: tilt 12° [0,0.2], translateY [-370,70], h-[180vh], scroll-only X ±1000,
@@ -116,23 +119,26 @@ function ProductCard({
   product,
   translate,
   reduce,
+  priority = false,
 }: {
   product: { title: string; link: string; thumbnail: string };
   translate: MotionValue<number>;
   reduce: boolean | null;
+  priority?: boolean;
 }) {
   return (
     <motion.div
       style={reduce ? undefined : { x: translate }}
       className="group/product relative h-56 w-64 flex-shrink-0 overflow-hidden rounded-xl bg-white shadow-soft transition-[translate,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-xl md:h-72 md:w-80 lg:h-80 lg:w-[26rem]"
     >
-      <Link href={product.link} className="block h-full w-full">
+      <Link href={product.link} className="block h-full w-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={product.thumbnail}
           alt={product.title}
           className="absolute inset-0 h-full w-full object-cover object-center"
-          loading="lazy"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/35 via-gray-900/5 to-transparent opacity-90" />
       </Link>
@@ -183,15 +189,12 @@ export function Hero() {
     springConfig,
   );
 
-  useEffect(() => {
-    if (reduce) return;
-    gsap.registerPlugin(ScrollTrigger);
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    if (prefersReduced) return;
+  useGSAP(
+    () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+      }
 
-    const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
       tl.from(".hero-badge", { opacity: 0, y: 20, duration: 0.5 })
         .from(".hero-title", { opacity: 0, y: 30, duration: 0.6 }, "-=0.3")
@@ -220,9 +223,9 @@ export function Hero() {
           scrub: 1,
         },
       });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, [reduce]);
+    },
+    { scope: sectionRef },
+  );
 
   const firstRow = annaBerProducts.slice(0, 5);
   const secondRow = annaBerProducts.slice(5, 10);
@@ -265,11 +268,11 @@ export function Hero() {
               and fluency — from first words to full conversations.
             </p>
             <div className="hero-cta mt-8 flex flex-wrap items-center justify-center gap-4">
-              <button className="inline-flex items-center gap-2 rounded-full bg-primary-500 px-7 py-3.5 text-[15px] font-medium text-white shadow-soft transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5 hover:bg-primary-600 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-200 focus-visible:ring-offset-2 active:translate-y-0 active:shadow-soft">
+              <button className="inline-flex items-center gap-2 rounded-full bg-primary-600 px-7 py-3.5 text-[15px] font-medium text-white shadow-soft transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5 hover:bg-primary-700 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 active:translate-y-0 active:shadow-soft">
                 Start learning
                 <ArrowRightIcon className="h-4 w-4" weight="bold" />
               </button>
-              <button className="inline-flex items-center gap-2 rounded-full border-2 border-primary-200 bg-white px-7 py-3.5 text-[15px] font-medium text-primary-600 transition-[transform,background-color,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary-500 hover:bg-primary-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-200 focus-visible:ring-offset-2 active:translate-y-0">
+              <button className="inline-flex items-center gap-2 rounded-full border-2 border-primary-200 bg-white px-7 py-3.5 text-[15px] font-medium text-primary-600 transition-[transform,background-color,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary-500 hover:bg-primary-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 active:translate-y-0">
                 <PlayIcon className="h-4 w-4" weight="fill" />
                 See how it works
               </button>
@@ -300,6 +303,7 @@ export function Hero() {
                 product={product}
                 translate={translateX}
                 reduce={!!reduce}
+                priority={idx < 4}
               />
             ))}
           </motion.div>
@@ -310,6 +314,7 @@ export function Hero() {
                 product={product}
                 translate={translateXReverse}
                 reduce={!!reduce}
+                priority={idx < 3}
               />
             ))}
           </motion.div>
@@ -320,6 +325,7 @@ export function Hero() {
                 product={product}
                 translate={translateX}
                 reduce={!!reduce}
+                priority={idx < 3}
               />
             ))}
           </motion.div>

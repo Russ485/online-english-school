@@ -18,6 +18,7 @@
   --color-accent-400: #FB923C;
   --color-accent-500: #F97316;
   --color-accent-600: #EA580C;
+  --color-accent-700: #C2410C;
 
   /* ── Card tints (Benefits per-image gradients) ────────── */
   --color-violet-50: #F5F3FF;
@@ -29,6 +30,7 @@
 
   /* ── Semantic ─────────────────────────────────────────── */
   --color-success: #22C55E;
+  --color-success-700: #15803D;
   --color-warning: #F59E0B;
   --color-error: #EF4444;
 
@@ -80,6 +82,7 @@
 
   /* ── Motion ───────────────────────────────────────────── */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  /* impeccable-disable-next-line bounce-easing: canonical DESIGN.md motion token, not used in markup */
   --ease-spring-soft: cubic-bezier(0.34, 1.56, 0.64, 1);
   --duration-fast: 150ms;
   --duration-base: 200ms;

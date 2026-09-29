@@ -148,7 +148,7 @@ export function HowItWorks() {
                   <span className="min-w-0">
                     <span
                       className={`block font-[family-name:var(--font-display)] text-sm font-medium ${
-                        active === index ? "text-accent-500" : "text-gray-400"
+                        active === index ? "text-accent-700" : "text-gray-500"
                       }`}
                     >
                       Step {step.number}

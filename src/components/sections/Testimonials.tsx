@@ -10,7 +10,7 @@ const testimonials = [
     name: "Sarah M.",
     child: "Emma, age 9",
     initials: "SM",
-    color: "bg-primary-100 text-primary-600",
+    color: "bg-primary-100 text-primary-700",
   },
   {
     quote:
@@ -18,7 +18,7 @@ const testimonials = [
     name: "David K.",
     child: "Lucas, age 11",
     initials: "DK",
-    color: "bg-accent-100 text-accent-600",
+    color: "bg-accent-100 text-accent-700",
   },
   {
     quote:
@@ -26,7 +26,7 @@ const testimonials = [
     name: "Maria L.",
     child: "Daniel, age 14",
     initials: "ML",
-    color: "bg-success/10 text-success",
+    color: "bg-success/10 text-success-700",
   },
 ];
 
@@ -41,7 +41,7 @@ function TestimonialCard({ testimonial }: { testimonial: Testimonial }) {
     <div className="flex w-[320px] shrink-0 flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-soft transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
       <div className="flex gap-1">
         {[...Array(5)].map((_, i) => (
-          <StarIcon key={i} className="h-4 w-4 text-accent-400" weight="fill" />
+          <StarIcon key={i} className="h-4 w-4 text-accent-600" weight="fill" />
         ))}
       </div>
       <blockquote className="mt-4 text-sm leading-relaxed text-gray-700">

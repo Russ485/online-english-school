@@ -92,7 +92,8 @@ export function Faq() {
                     type="button"
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     aria-expanded={isOpen}
-                    className={`flex w-full items-center justify-between gap-4 p-5 text-left focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-primary-500 ${
+                    aria-controls={`faq-panel-${index}`}
+                    className={`flex w-full items-center justify-between gap-4 rounded-xl p-5 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 ${
                       isOpen ? "text-primary-600" : "text-gray-900"
                     }`}
                   >
@@ -115,6 +116,7 @@ export function Faq() {
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
+                      id={`faq-panel-${index}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}

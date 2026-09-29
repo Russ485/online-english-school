@@ -118,14 +118,14 @@ export function Footer() {
             <div className="mt-4 space-y-2">
               <a
                 href="mailto:hello@annaber.com"
-                className="pointer-events-auto flex items-center gap-2 text-sm text-gray-400 transition-colors duration-200 hover:text-white"
+                className="pointer-events-auto flex items-center gap-2 text-sm text-gray-400 transition-colors duration-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
               >
                 <EnvelopeSimpleIcon className="h-4 w-4" weight="regular" />
                 hello@annaber.com
               </a>
               <a
                 href="tel:+15551234567"
-                className="pointer-events-auto flex items-center gap-2 text-sm text-gray-400 transition-colors duration-200 hover:text-white"
+                className="pointer-events-auto flex items-center gap-2 text-sm text-gray-400 transition-colors duration-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
               >
                 <PhoneIcon className="h-4 w-4" weight="regular" />
                 +1 (555) 123-4567
@@ -148,7 +148,7 @@ export function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="pointer-events-auto text-sm text-gray-400 transition-colors duration-200 hover:text-white"
+                    className="pointer-events-auto text-sm text-gray-400 transition-colors duration-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
                   >
                     {link.label}
                   </a>
@@ -172,7 +172,7 @@ export function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="pointer-events-auto text-sm text-gray-400 transition-colors duration-200 hover:text-white"
+                    className="pointer-events-auto text-sm text-gray-400 transition-colors duration-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
                   >
                     {link.label}
                   </a>
@@ -196,7 +196,7 @@ export function Footer() {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="pointer-events-auto text-sm text-gray-400 transition-colors duration-200 hover:text-white"
+                    className="pointer-events-auto text-sm text-gray-400 transition-colors duration-200 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
                   >
                     {link.label}
                   </a>
@@ -214,7 +214,7 @@ export function Footer() {
           viewport={{ once: true, amount: 0.3 }}
           className="pointer-events-none relative z-10 mt-12 flex flex-col items-center justify-between gap-6 border-t border-gray-800 pt-8 md:flex-row"
         >
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-gray-400">
             &copy; 2026 AnnaBer. All rights reserved.
           </p>
           <div className="flex gap-4">
@@ -223,7 +223,7 @@ export function Footer() {
                 key={social.label}
                 href={social.href}
                 aria-label={social.label}
-                className="pointer-events-auto text-gray-500 transition-colors hover:text-white"
+                className="pointer-events-auto text-gray-500 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
               >
                 <social.icon className="h-5 w-5" weight="regular" />
               </a>

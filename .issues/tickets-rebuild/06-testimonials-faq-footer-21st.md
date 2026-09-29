@@ -2,7 +2,7 @@
 
 **Label:** wayfinder:task
 **Map:** map-annaber-rebuild.md
-**Status:** PARTIAL (2026-09-28) — Testimonials + FAQ + Footer DONE; чекає go на CLOSED
+**Status:** CLOSED (2026-09-28) — Testimonials + FAQ + Footer v3 DONE (go користувача)
 **Blocked by:** 05-pricing-howitworks-21st.md
 
 ## Question

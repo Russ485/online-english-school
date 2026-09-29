@@ -1,8 +1,14 @@
 "use client";
 
 import Image from "next/image";
+import { useRef } from "react";
 import { ArrowRightIcon } from "@phosphor-icons/react";
 import { motion, useReducedMotion } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 const benefits = [
   {
@@ -65,6 +71,27 @@ const imgVariants = {
 
 export function Benefits() {
   const reduce = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+      }
+      gsap.from("[data-reveal-item]", {
+        y: 14,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: "expo.out",
+        scrollTrigger: {
+          trigger: "[data-reveal]",
+          start: "top 72%",
+        },
+      });
+    },
+    { scope: sectionRef },
+  );
 
   const cardTransition = reduce
     ? undefined
@@ -77,7 +104,7 @@ export function Benefits() {
     : { type: "spring" as const, stiffness: 400, damping: 10 };
 
   return (
-    <section className="bg-white py-16 md:py-24">
+    <section ref={sectionRef} className="bg-white py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="font-[family-name:var(--font-display)] text-3xl font-semibold tracking-tight text-gray-900 md:text-4xl">
@@ -85,45 +112,53 @@ export function Benefits() {
           </h2>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-6">
+        <div
+          data-reveal
+          className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-6"
+        >
           {benefits.map((benefit) => (
-            <motion.div
+            <div
               key={benefit.title}
-              className={`benefit-card group relative min-h-[264px] overflow-hidden rounded-xl border border-gray-200 bg-gradient-to-br ${benefit.gradient} p-6 md:p-8 transition-shadow duration-300 ease-out-expo hover:shadow-md lg:col-span-2 ${benefit.place}`}
-              initial="rest"
-              animate="rest"
-              whileHover={reduce ? undefined : "hover"}
-              variants={cardVariants}
-              transition={cardTransition}
+              data-reveal-item
+              className={`lg:col-span-2 ${benefit.place}`}
             >
               <motion.div
-                variants={imgVariants}
-                transition={imgTransition}
-                className="pointer-events-none absolute -bottom-5 -right-5 h-36 w-36 sm:h-44 sm:w-44"
+                className={`benefit-card group relative h-full min-h-[264px] overflow-hidden rounded-lg border border-gray-200 bg-gradient-to-br ${benefit.gradient} p-6 md:p-8 transition-shadow duration-300 ease-out-expo hover:shadow-md`}
+                initial="rest"
+                animate="rest"
+                whileHover={reduce ? undefined : "hover"}
+                variants={cardVariants}
+                transition={cardTransition}
               >
-                <Image
-                  src={benefit.image}
-                  alt={benefit.alt}
-                  width={200}
-                  height={200}
-                  className="h-full w-full object-contain"
-                />
-              </motion.div>
-              <div className="relative z-10 flex h-full flex-col">
-                <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold text-gray-900 sm:text-2xl">
-                  {benefit.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-gray-700">
-                  {benefit.description}
-                </p>
-                <div className="mt-auto flex items-center gap-1.5 pt-4">
-                  <span className="text-sm font-medium text-gray-600 transition-colors duration-200 group-hover:text-primary-600">
-                    Learn more
-                  </span>
-                  <ArrowRightIcon className="h-4 w-4 text-gray-400 transition-all duration-200 group-hover:translate-x-1 group-hover:text-primary-600" />
+                <motion.div
+                  variants={imgVariants}
+                  transition={imgTransition}
+                  className="pointer-events-none absolute -bottom-5 -right-5 h-36 w-36 sm:h-44 sm:w-44"
+                >
+                  <Image
+                    src={benefit.image}
+                    alt={benefit.alt}
+                    width={200}
+                    height={200}
+                    className="h-full w-full object-contain"
+                  />
+                </motion.div>
+                <div className="relative z-10 flex h-full flex-col">
+                  <h3 className="font-[family-name:var(--font-display)] text-xl font-semibold text-gray-900 sm:text-2xl">
+                    {benefit.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-gray-700">
+                    {benefit.description}
+                  </p>
+                  <div className="mt-auto flex items-center gap-1.5 pt-4">
+                    <span className="text-sm font-medium text-gray-600 transition-colors duration-200 group-hover:text-primary-600">
+                      Learn more
+                    </span>
+                    <ArrowRightIcon className="h-4 w-4 text-gray-500 transition-all duration-200 group-hover:translate-x-1 group-hover:text-primary-600" />
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           ))}
         </div>
       </div>

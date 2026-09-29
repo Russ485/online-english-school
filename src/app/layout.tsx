@@ -5,7 +5,7 @@ import "./globals.css";
 const fredoka = Fredoka({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["500", "600", "700"],
 });
 
 const dmSans = DM_Sans({

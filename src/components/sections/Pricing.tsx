@@ -99,7 +99,7 @@ export function Pricing() {
                 initial="rest"
                 animate="rest"
                 whileHover={reduce ? undefined : "hover"}
-                className={`flex h-full flex-col rounded-2xl p-6 transition-shadow duration-200 ease-out-expo md:p-7 ${
+                className={`flex h-full flex-col rounded-xl p-6 transition-shadow duration-200 ease-out-expo md:p-8 ${
                   plan.popular
                     ? "border-2 border-primary-500 bg-gradient-to-b from-white to-primary-100 shadow-lg hover:shadow-xl"
                     : "border border-gray-200 bg-white shadow-soft hover:shadow-md"
@@ -110,7 +110,7 @@ export function Pricing() {
                     {plan.name}
                   </h3>
                   {plan.popular && (
-                    <span className="rounded-full bg-primary-500 px-3 py-1 text-xs font-semibold text-white">
+                    <span className="rounded-full bg-primary-600 px-3 py-1 text-xs font-semibold text-white">
                       Most popular
                     </span>
                   )}
@@ -128,7 +128,7 @@ export function Pricing() {
                   type="button"
                   className={`mt-5 flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 ${
                     plan.popular
-                      ? "bg-gradient-to-b from-primary-500 to-primary-600 shadow-lg shadow-primary-500/30 hover:from-primary-600 hover:to-primary-700 hover:shadow-xl hover:shadow-primary-500/40"
+                      ? "bg-gradient-to-b from-primary-600 to-primary-700 shadow-lg shadow-primary-500/30 hover:from-primary-700 hover:to-primary-700 hover:shadow-xl hover:shadow-primary-500/40"
                       : "bg-gray-900 shadow-lg shadow-gray-900/20 hover:bg-gray-700 hover:shadow-xl hover:shadow-gray-900/25"
                   }`}
                 >
@@ -140,7 +140,7 @@ export function Pricing() {
                     <li key={feature} className="flex items-start gap-2.5">
                       <CheckCircleIcon
                         className={`mt-0.5 h-5 w-5 flex-shrink-0 ${
-                          plan.popular ? "text-primary-500" : "text-success"
+                          plan.popular ? "text-primary-500" : "text-success-700"
                         }`}
                         weight="regular"
                       />

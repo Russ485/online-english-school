@@ -1,4 +1,4 @@
-# HANDOFF — AnnaBer Rebuild (2026-09-28, Ticket 06: Testimonials + FAQ + Footer DONE → чекає go на 06 CLOSED)
+# HANDOFF — AnnaBer Rebuild (2026-09-29, Ticket 08 DONE → чекає closing go)
 
 > **Живе в репо** (`HANDOFF.md:1`), не в `Temp` — щоб не зникав. Оновлюється після кожного тікета/сесії.
 
@@ -10,8 +10,10 @@
 - **Ticket 03** `03-hero-parallax-21st` — **PARTIAL (web/desktop done, mobile/tablet follow-up)** — canonical `src/components/sections/Hero.tsx:1`. **НЕ чіпати** (включно з formatting-only uncommitted правками — підтверджено користувачем як канонічні). 03 adaptive → окрема гриль-сесія пізніше.
 - **Ticket 04** `04-benefits-21st` — **CLOSED (2026-09-23)**, повний Resolution у `.issues/tickets-rebuild/04-benefits-21st.md:30` (gradient-card hand-replicate, DIRECT EDIT, Framer Motion hover, entrance прибрано «поки»).
 - **Ticket 05** `05-pricing-howitworks-21st` — **CLOSED (2026-09-26)**: Pricing + HowItWorks DONE + анімація HowItWorks ітерація-3 + **REOPEN закрито (2026-09-26): статичне зображення — варіант A (clip-path mask на grid-cell, контент без трансформацій), верифіковано 2/2**. Повні Resolutions — у `.issues/tickets-rebuild/05-pricing-howitworks-21st.md:26` (REOPEN — секція `## REOPEN` наприкінці).
-- **Ticket 06** `06-testimonials-faq-footer-21st` — **PARTIAL (усі 3 підпункти DONE, чекає go на CLOSED)**: **Testimonials DONE** (2026-09-26, get 822 serafim MIT) + **FAQ DONE** (2026-09-27, get 25011 intentui MIT) + **Footer DONE** (2026-09-28, **0 get** — typewriter-назва hand-replicate + **v2 гігантський outline ANNABER + v3 правки користувача (прозорий stroke 30%, text-left, 16.5vw/12.5rem, bottom-based позиціонування), verify 4/4**, квота 2/2 не витрачена). Resolutions — секції `Resolution 06 / Testimonials`, `Resolution 06 / FAQ`, `Resolution 06 / Footer` нижче.
-- **Далі:** чекаю **go на 06 CLOSED** → далі Ticket 07 (GSAP motion pass). NO AUTO-ADVANCE.
+- **Ticket 06** `06-testimonials-faq-footer-21st` — **CLOSED (2026-09-28)**: **Testimonials DONE** (2026-09-26, get 822 serafim MIT) + **FAQ DONE** (2026-09-27, get 25011 intentui MIT) + **Footer DONE** (2026-09-28, **0 get** — typewriter-назва hand-replicate + **v2 гігантський outline ANNABER + v3 правки користувача (прозорий stroke 30%, text-left, 16.5vw/12.5rem, bottom-based позиціонування), verify 4/4**, квота 2/2 не витрачена). Resolutions — секції `Resolution 06 / Testimonials`, `Resolution 06 / FAQ`, `Resolution 06 / Footer` нижче.
+- **Ticket 07** `07-gsap-motion-pass.md` — **CLOSED (2026-09-28)**: рішення **гібрид** (FM entrances у Pricing/HowItWorks лишились; GSAP = Hero + Benefits reveal), Hero `useGSAP`-уніфікація + matchMedia-guard, Benefits ScrollTrigger reveal (DESIGN 7.2, **`start "top 72%"` — власний підбір власника**), verify 4/4, **0 get**. Resolution — секція `Resolution 07` нижче.
+- **Ticket 08** `08-impeccable-polish.md` — **DONE (2026-09-29), Status OPEN → чекає closing go** (5/6 етапів зі STOP, усі рішення групи застосовані): contrast 14→2 (FP), Fredoka 500-700, FAQ aria, токени accent-700/success-700, focus-visible повний, radius-ритм, **LCP 375: 3040→200ms**, detect 0 findings. Resolution — секція `Resolution 08` нижче.
+- **Далі:** closing go на 08 (Status→CLOSED + map) → Ticket 09 (Playwright verification). NO AUTO-ADVANCE.
 
 ## Resolution 05 / Pricing (2026-09-25) — що зроблено
 
@@ -70,11 +72,29 @@
 - **Ітерація Footer v3 (2026-09-28) — зауваження користувача, verify 4/4 + lint/build ✓:** (1) літери обрізані знизу; (2) центрування → **ліворуч** (`text-left` + `pl-4 sm:pl-6 lg:pl-8`); (3) нав'язливість/перекриття соцмереж → база **прозора** `[-webkit-text-stroke:2px_rgb(59,130,246,0.3)]`, hover-fill = повний `--color-primary-500` (question tool: база 30%, fill 100%). Кегль `min(20vw,16rem) → min(16.5vw,12.5rem)`. **Позиціонування layout-based:** translate прибрано (`-webkit-text-stroke` ink ігнорує CSS `translate` — див. gotcha 7), натомість гігант-div `bottom-0 lg:bottom-[-36px]` → фінальний піксель-замір (з `document.fonts.ready`): **ink 564..707**, прогалина до Contact 12.5px, запас знизу 12.5px, 0 синіх у зоні Contact / y≥712; без fonts.ready — 554..697 (теж без накладання/обрізки). Спеки/скріншоти/test-results видалені, :3000 зупинено, `baseline.spec.ts` не чіпали.
 - **⚠️ Gotcha v3:** (7) **CSS `translate` на батьківському span пересуває бокси/фон, але `-webkit-text-stroke` ink малюється без трансформа** → `translate-y-*` для гіганта неефективний, позиціонувати через `bottom-[-Npx]` (layout); (8) `test-results` очищається кожним запуском Playwright — старі піксельні заміри не перечитувати; (9) метрики ink залежать від `document.fonts.ready` — у спеках чекати перед мірянням/скріншотом (інакше ~10px drift); (10) `IsBlue`-фільтр ловить і gray-800 border + AA-текст (false positive) → повносмугові лінки окремим кольором, текстова зона — поріг ≥30 і x≥140 поза бренд-колонкою.
 
+## Resolution 07 / GSAP motion pass (2026-09-28) — що зроблено
+
+- **Рішення (question tool BEFORE START):** **гібрид** — FM entrances у Pricing/HowItWorks **лишились** (hover теж FM), секції 06 не чіпали; GSAP = Hero уніфікація + Benefits reveal. Grilling — ні; skills — gsap-scrolltrigger/react/performance + playwright-core; workflow — DIRECT EDIT; **0 × 21st get** (gate лише 03-06). `ui-ux-pro-max --domain gsap` CLI — **пропущено** (Python 3 не встановлено, лише WindowsApps alias — за рішенням власника), натомість snippet DESIGN 7.2 + gsap-skills.
+- **Hero (`Hero.tsx`):** `useGSAP({ scope: sectionRef })` замість `useEffect` + ручного `gsap.context` (auto-revert, `useLayoutEffect` до paint → без flash); module-level `gsap.registerPlugin(ScrollTrigger, useGSAP)` (SSR-safe, prerender ✓); **єдиний reduce-guard = `matchMedia`** (прибрано дублювання reduce-hook + matchMedia; зник подвійний запуск entrance при null→boolean переході хука після гідратизації — старий `useEffect [reduce]` перестворював timeline). Scrub `hero-blur-1/2` + entrance timeline + FM preview — **без змін**; GSAP-скраб `.hero-preview` (DESIGN 7.1) НЕ додано (битиметься з FM `translateY [-370,70]`, 03-затверджено); третій блоб без класу — лишився (DESIGN визначає лише blur-1/2).
+- **Benefits (`Benefits.tsx`):** ScrollTrigger reveal DESIGN 7.2 — `y:14`, `opacity 0→1`, `duration 0.5`, `stagger 0.1`, `ease "expo.out"`, trigger `[data-reveal]`, **`start "top 72%"`**: історія `82%` (DESIGN) → `40%` (мій фікс за «нижній ряд не видно під час каскаду») → **`72%` самостійно встановив власник** (візуально перевірено — фінальне). Guard `matchMedia`; лише `transform/opacity`. **Wrapper-div `data-reveal-item`** навколо кожної картки: grid-класи (`lg:col-span-2`, `${benefit.place}`) → wrapper, картка `h-full` → GSAP-анімує transform wrapper'а, FM `whileHover` scale — внутрішнього вузла (без конфлікту в одному inline `transform`; рівні висоти рядів збережені). Початковий стан — **з JS, без SSR-атрибутів** → прецедент гідратизація × reduce ✓; при `reduce` гілка не створюється (контент visible) → «entrance прибрано в 04 «поки»» тепер закритий через 07.
+- **Verify:** lint ✓ build ✓; тимчасова спека **4/4 при `start 40%`**: (1) desktop 1280×800 — стартовий стан wrapper `opacity <0.01` (нижче fold) → trigger: нижній ряд (4-та картка) `top < innerHeight` → rAF-самплер: усі 5 `≥0.99` за 1.4s, stagger (t1 < t5, на t1 `opacity(card5) <0.05`), `y1 >0.5` при вході → фінальний `|y| <0.5`; **no layout shift** (`offsetTop/offsetHeight` до = після); **no pin** (`.pin-spacer` null, `scrollHeight` stable); `scrollWidth ≤1281`; (2) **reduce** (`emulateMedia` перед goto): `.hero-blur-1` `transform/translate = none`, badge `opacity 1` без inline; усі wrapper `opacity 1` + inline `transform ""`; (3-4) smoke 768/375 — reveal до 1.0, `scrollWidth ≤ w+1`. Скріншоти mid/final вручну ✓. **Примітка:** прогін при `40%`; фінальне `72%` — після прогону (власник) → позиційна асерція «нижній ряд < innerHeight» чинна лише для 40%, механіка reveal від позиції тригера не залежить. Спека/скріншоти/test-results видалені, :3000 зупинено, `baseline.spec.ts` не чіпаний.
+- **⚠️ Gotcha (нові):** (11) `start "top 82%"` для сітки у 2+ ряди → каскад закінчується поки нижній ряд поза екраном → значення підбирається візуально (40% vs фінальні **72% власника**); (12) stagger-асерції міряти «стан іншого елемента на t(N)», не на власному перетині (на t5 opacity(card5) вже ≈0.2 — хибна помилка спеки); (13) `playwright.config` `reuseExistingServer` → **застарілий :3000 попередньої сесії переиспользується** (стара збірка!) → перед запуском вбивати порт (`Get-NetTCPConnection -LocalPort 3000`).
+
+## Resolution 08 / Impeccable polish (2026-09-29) — що зроблено
+
+- **Рішення групи (усі «так», 5 питань):** A — CTA→`primary-600`; D+E — 4 прості заміни; B+C — токени `accent-700`/`success-700` + зірки→`accent-600`; F — усі 3 focus-пункти (ring-primary-500, FAQ `rounded-xl`+`outline-offset-2`, брендовані лінки); HowItWorks `p-4` — лишити. REJECTED: лінійна контрастність gray-400/500 (544 заміни заради неіснуючої вимоги), Pricing residual drift, Benefits bento 3+2, «Learn more». Skills: impeccable + playwright-core; DIRECT EDIT; **0 × 21st get**.
+- **Етап 2:** `layout.tsx` Fredoka `weight:["500","600","700"]` (P1-4); `Faq.tsx` `aria-controls`/`id="faq-panel-N"` (P1-5).
+- **Етап 3 contrast/focus:** `tokens.css` +accent-700 `#C2410C` +success-700 `#15803D`; `Hero.tsx` CTA 600/700 + ring-primary-500 + preview-Link focus; `Pricing.tsx` badge/градієнт 600-700, checks success-700; `HowItWorks` accent-700/gray-500; `Benefits` стрілка gray-500; `Testimonials` SM→primary-700, DK→accent-700, ML→success-700, зірки→accent-600; `Footer` копірайт gray-400 + усі anchors `focus-visible:outline-2 offset-2 primary-500`; `Faq` button `rounded-xl`+`outline-offset-2`. **Contrast 14→2 (обидва FP: спека бере computed style першого stop'а градієнта; реальний мінімум 5.17/6.70 PASS)**. Focus live: ring white+offset+`rgb(59,130,246)`, лінки `solid 2px primary-500 off:2px` ✓.
+- **Етап 4 radius:** `Pricing` `rounded-2xl→rounded-xl` + `md:p-7→md:p-8`; `Benefits` `rounded-xl→rounded-lg` (24/16-шкала DESIGN).
+- **Етап 5 LCP (backlog закрито):** реальний LCP = Hero preview Unsplash img (не benefits-підказка). Вимірювання rects: у первому viewport лише оригінали (дублікати-півциклі ніколи). `ProductCard` `priority`-проп → `loading="eager"` + `fetchPriority="high"` на 10 оригіналів (ряд0 idx<4, ряд1 idx<3, ряд2 idx<3), решта lazy. **LCP: 375 3040→200ms, 768 512→192ms, 1280 360→188ms** (CDN теплий — частину дає кеш; eager+priority підтверджено `complete=true`).
+- **Етап 6:** `detect.mjs` 9 файлів → 1 finding (bounce `--ease-spring-soft` — канонічний DESIGN.md токен, unused) → inline-ignore → **0 findings exit 0**; скріни 375/768/1280 top+375-full вручну ✓; фінальний прогін fails=2(FP)/overflow ✓/console 0/focus 59/59; lint+build ✓. Прибрано temp-спеку/скріни/скрипти, :3000 зупинено, `baseline.spec.ts` не чіпаний.
+- **⚠️ Gotcha (нові):** (14) **декілька `next start`+rebuild поспіль → змішаний стан ассетів** (каламутні rects, хибні 0-visible) → вбивати :3000 перед rebuild+measure; (15) `fetchPriority` camelCase у React 19 ✓; (16) lab()→sRGB у temp-спеці ±3 ΔE — ок для діагностики; без конверсії діагностика контрасту хибить на Tailwind v4.1 `@supports lab()` gray-токенах.
+
 ## Відомі незакриті місця (мимо поточного тікета)
 
-1. **LCP dev-hint:** браузер пише «Image `/benefits/video_game_3d.png` detected as LCP → add `loading="eager"`». Benefits поза fold (Hero 180vh), вплив мінімальний → **Ticket 08 (polish):** визначити реальний LCP (скоріш засе Hero-зображення → йому `priority`), не чіпати зараз (04 закритий, 03 не чіпати).
+1. **LCP dev-hint — ВИРІШЕНО в 08** (2026-09-29): реальний LCP = Hero preview img → eager+fetchPriority, 375: 3040→200ms. Benefits-підказка була хибною.
 2. 03 adaptive (mobile/tablet Hero) → окрема гриль-сесія.
-3. Hero.tsx uncommitted formatting (Prettier) — закомічити разом з docs.
+3. Незакомічені правки 06/07/08 (`HANDOFF.md`, map, тікети 06/07/08, `Hero.tsx`, `Benefits.tsx`, `tokens.css`, `Faq/Pricing/HowItWorks/Benefits/Testimonials/Footer.tsx`, `layout.tsx`) — закомічити разом з docs (після closing go).
 
 ## Що побудовано (2026-09-04, не змінилось)
 
@@ -139,22 +159,92 @@ Scope Footer (з Resolution 06 / FAQ — NEXT):
 Працюй українською, техтерміни English. Build+lint після змін, temp-спеки видаляти, STOP після кожного пункту.
 ```
 
-## Prompt для наступної сесії (go: 06 CLOSED → Ticket 07)
+## Prompt для наступної сесії (go: 06 CLOSED → Ticket 07) — ВИКОРИСТАНО (2026-09-28, 07 CLOSED)
 
 Скопіюй:
 
 ```
-Продовжуємо AnnaBer Rebuild — Ticket 06 усі DONE (Footer DONE 2026-09-28): закриваємо 06, далі Ticket 07 (GSAP motion pass). НЕ авансимось на 08.
+Продовжуємо AnnaBer Rebuild — це мій go на закриття 06 (усі DONE: Testimonials + FAQ + Footer v3, 2026-09-28), далі Ticket 07 (GSAP motion pass). НЕ авансимось на 08.
 
 Спочатку прочитай (у такому порядку):
-1. HANDOFF.md (Resolutions 05/06 + gotcha; квота 2/2 get, щоденний reset)
+1. HANDOFF.md (Resolutions 05/06 включно з Footer v2/v3 + gotcha 1-10; квота 2/2 get недоторкана)
 2. .issues/map-annaber-rebuild.md (active wayfinder)
-3. .issues/tickets-rebuild/06-testimonials-faq-footer-21st.md (Footer DONE → Status CLOSED + map row CLOSED після мого go)
-4. .issues/tickets-rebuild/07-gsap-motion-pass.md + PRODUCT.md + AGENTS.md
+3. .issues/tickets-rebuild/06-testimonials-faq-footer-21st.md → Status → CLOSED (цей промпт = мій go); map рядок 06 → CLOSED
+4. .issues/tickets-rebuild/07-gsap-motion-pass.md + PRODUCT.md + AGENTS.md (DESIGN.md 7.1/7.2 motion — через Open Design MCP)
 
-⚠️ MANDATORY: ONE TICKET AT A TIME, NO AUTO-ADVANCE. BEFORE START питай: (a) grilling? (b) extra skills? (c) workflow? 21st APPROVAL GATE: usage → search --json → робочі лінки (поле url, формат /c/<id> = 404) → мій ok → webfetch ліцензія ДО get. Playwright тільки temp-спеки (page.emulateMedia({ reducedMotion: "reduce" }) перед goto; Tailwind v4 — читати getComputedStyle().translate/.rotate). Hero/03, 04, 05 — НЕ чіпати. Frozen content без переписування.
+Крок 1: закрий 06 (тікет Status CLOSED + map рядок 06 CLOSED) → покажи diff і STOP, чекай мій «go» на старт 07.
 
-Стан: 00/01/02 CLOSED; 03 PARTIAL (не чіпати); 04/05 CLOSED; 06 — усі DONE (Testimonials+FAQ+Footer), чекає закриття; 07-10 OPEN. Known backlog: LCP dev-hint → 08; 03 adaptive → окрема гриль-сесія.
+Крок 2 (Ticket 07) BEFORE START обов'язково питай: (a) grilling? (b) extra skills? (передбачаю gsap-scrolltrigger/gsap-react/gsap-performance + playwright-core; 21st для 07 не потрібен — gate стосується 03-06) (c) workflow? (за прецедентом: DIRECT EDIT у канонічних файлах).
+
+Scope 07 (з тікета):
+- gsap.registerPlugin(ScrollTrigger) scoped через gsap.context
+- Hero: scrub parallax на bg shapes/illustration (scrub: 1, yPercent/scale) — з 03 частково вже є (hero-blur/1/2, useReducedMotion guard) → уніфікувати, НЕ переписувати Hero з нуля
+- Benefits/Pricing/HowItWorks: ScrollTrigger staggered reveal (0.1-0.2s), лише transform/opacity
+- ⚠️ КОНФЛІКТ-ПИТАННЯ (обговорити ПЕРЕД правками): ці секції вже мають Framer Motion entrances (custom stagger, initial="hidden") — замінити їх на ScrollTrigger чи залишити FM, а GSAP лишити тільки Hero? Мій прецедент: мікроанімації секцій — Framer Motion, GSAP — Hero scrub + Ticket 07 → запропонуй варіанти, чекай рішення.
+- Respect prefers-reduced-motion (useReducedMotion з framer-motion), disable ScrollTrigger при reduce
+- Verify 375/768/1280, no layout shift, no pin overflow; опційно ui-ux-pro-max --domain gsap (--motion 8 snippet)
+
+⚠️ MANDATORY: ONE TICKET AT A TIME, NO AUTO-ADVANCE. НЕ чіпати 03/04/05/06 (редагувати їхні секції тільки як частину 07 stagger і з мого ок). Frozen content без переписування. Playwright тільки temp-спеки (писати → run → видалити; page.emulateMedia({ reducedMotion: "reduce" }) перед goto; читати getComputedStyle().translate/.rotate; чекати document.fonts.ready перед піксель-замірами; test-results очищається щозапуску). Build+lint після змін. STOP після кожного підпункту.
+
+Стан: 00/01/02 CLOSED; 03 PARTIAL (не чіпати); 04/05 CLOSED; 06 → CLOSED (цей промпт); 07-10 OPEN. Known backlog: LCP dev-hint → 08; 03 adaptive → окрема гриль-сесія. Квота 21st: 2/2 get (денний reset).
+
+Працюй українською, техтерміни English.
+```
+
+## Prompt для наступної сесії (Ticket 08: Impeccable Polish) — ВИКОРИСТАНО (2026-09-29, 08 DONE)
+
+Скопіюй:
+
+```
+Продовжуємо AnnaBer Rebuild — Ticket 08: Impeccable Polish (07 закрито). НЕ авансимось на 09.
+
+Спочатку прочитай (у такому порядку):
+1. HANDOFF.md (Resolutions 05/06/07 + gotcha 1-13; «Відомі незакриті місця» — LCP dev-hint = кандидат саме в 08; квота 21st get 2/2 недоторкана)
+2. .issues/map-annaber-rebuild.md (active wayfinder)
+3. .issues/tickets-rebuild/08-impeccable-polish.md (Status OPEN → ведемо Resolution)
+4. .issues/tickets-rebuild/02-impeccable-critique.md:30 (DONE 2026-09-01, health 18/32, P0/P1/P2) + повний звіт impeccable/critique/annaber-baseline-02.md
+5. PRODUCT.md + AGENTS.md (DESIGN.md через Open Design MCP id ba33a560-5e9c-4520-a6ef-ca19c36b798e; токени src/app/tokens.css)
+
+⚠️ Ключове: звіт 02 — по СТАРТОМУ білду; секції 03-07 з тих пір перебудовані → спершу звір кожен P0/P1/P2 з поточним кодом (частина могла зникнути сама), потім фікси. Не фіксити те, що вже не відтворюється.
+
+BEFORE START обов'язково питай: (a) grilling? (b) extra skills? (передбачаю: impeccable — обов'язковий за map-воркфлоу (00 init + 02 critique → 08 polish); playwright-core для temp-verify; ui-ux-pro-max CLI недоступний — Python 3 не встановлено, ще раз не питай по ньому, якщо не скажу) (c) workflow? (за прецедентом: DIRECT EDIT). 21st — НЕ потрібен (gate стосувався 03-06); якщо виникне потреба — спершу approval gate.
+
+Scope 08 (з тікета):
+- Fix P0 → всі, P1 → спробувати, P2 → за часом: hierarchy, contrast WCAG AA, spacing rhythm, focus-visible, responsive 375/768/1280
+- LCP dev-hint (backlog HANDOFF): визначити реальний LCP (скоріш за все Hero-зображення → йому loading="priority"), Benefits-підказку не «лікувати» навмання
+- Verify: `npm run build` clean + temp-спеки 375/768/1280 (писати → run → видалити)
+
+⚠️ MANDATORY: ONE TICKET AT A TIME, NO AUTO-ADVANCE. НЕ чіпати 03 (Hero адаптив — окрема гриль-сесія), секції 04-07 — лише як частини явних фіксів з мого ок. Frozen content без переписування. `tests/baseline.spec.ts` НЕ чіпати (він для 09). Playwright: page.emulateMedia({reducedMotion:"reduce"}) перед goto; читати getComputedStyle().translate/.rotate; document.fonts.ready перед піксель-замірами; test-results очищається щозапуску; перед запуском вбивати застарілий :3000 (gotcha 13 — reuseExistingServer переиспользує стару збірку). Build+lint після змін. STOP після кожного підпункту.
+
+Стан: 00/01/02 CLOSED; 03 PARTIAL (не чіпати); 04/05/06/07 CLOSED; 08-10 OPEN. Known backlog: LCP dev-hint → 08 (ця сесія); 03 adaptive → окрема гриль-сесія. Квота 21st: 2/2 get (денний reset).
+
+Після прочитання: проговори 3-5 пунктів що бачиш у поточному стані (перевірка HANDOFF + звірка 02-критики з кодом), потім запитай "Що робимо в 08?" і ЧЕКАЙ мій go — без нього не правити.
+
+Працюй українською, техтерміни English.
+```
+
+## Prompt для наступної сесії (закриття 08 → Ticket 09)
+
+Скопіюй:
+
+```
+Продовжуємо AnnaBer Rebuild — це мій go на закриття Ticket 08 (DONE 2026-09-29: contrast 14→2 FP, focus, radius, LCP 3040→200ms, detect 0 findings), далі Ticket 09 (Playwright verification). НЕ авансимось на 10.
+
+Спочатку прочитай (у такому порядку):
+1. HANDOFF.md (секція Resolution 08 + gotcha 14-16; «Відомі незакриті місця» — LCP закритий)
+2. .issues/map-annaber-rebuild.md (active wayfinder)
+3. .issues/tickets-rebuild/08-impeccable-polish.md → Status DONE (цей промпт = мій go) → CLOSED; map рядок 08 → CLOSED
+4. .issues/tickets-rebuild/09-playwright-verification.md + PRODUCT.md + AGENTS.md
+
+Крок 1: закрий 08 (тікет Status CLOSED + map рядок 08 CLOSED + HANDOFF-стан) → покажи diff і STOP, чекай мій «go» на старт 09.
+
+Крок 2 (Ticket 09) BEFORE START обов'язково питай: (a) grilling? (b) extra skills? (передбачаю playwright-core; ui-ux-pro-max CLI недоступий — Python 3 не встановлено) (c) workflow?
+
+Scope 09 (з тікета/ map): регенерація `screenshots/baseline/` (375/768/1280) через `tests/baseline.spec.ts` (він НЕ редагується — лише запускається), diff vs стартові baseline-знімки 01, звіт що змінилось по секціях 03-08.
+
+⚠️ MANDATORY: ONE TICKET AT A TIME, NO AUTO-ADVANCE. `tests/baseline.spec.ts` НЕ чіпати (редактувати — тільки якщо він сам падає, з мого ок). Playwright: перед запуском вбивати застарілий :3000 (gotcha 13/14), test-results очищається щозапуску; temp-спеки — тільки якщо треба (писати → run → видалити). Build+lint після змін. STOP після кожного підпункту.
+
+Стан: 00/01/02 CLOSED; 03 PARTIAL (не чіпати); 04/05/06/07 CLOSED; 08 DONE (цей промпт → CLOSED); 09-10 OPEN. Known backlog: 03 adaptive → окрема гриль-сесія. Квота 21st: 2/2 get (gate стосується 03-06; для 09 не потрібен). Незакомічені правки 06/07/08 + docs — закомічити разом з потрібним тікетом (за моїм ок).
 
 Працюй українською, техтерміни English.
 ```
@@ -192,7 +282,7 @@ Verify: lint + build → тимчасова Playwright-спека (підхід 
 
 - Українська, техтерміни English, SaaS-leaning playful but professional, light only, CTA "Start learning", kids 7-16 + parents
 - DIRECT EDIT у канонічних файлах; прототип/page SWITCH — відхилено (прецедент 04); gap/hover/циклічність без авто-анімації (**виняток, затверджено 2026-09-26:** маркі Testimonials — auto-рух одразу + pause on hover); scrub тільки на скрол
-- Мікроанімації секцій — Framer Motion (spring для bounce); GSAP — Hero scrub + Ticket 07; контент секцій — frozen copy
+- Мікроанімації секцій — Framer Motion (spring для bounce); GSAP — Hero scrub + Benefits reveal (`start "top 72%"`, власний підбір); контент секцій — frozen copy
 - Послідовність усередині тікета: STOP між підпунктами (05: Pricing → HowItWorks, обидва DONE 2026-09-25)
 - 21st: ліцензія обов'язова перед get; flip/scale/toggle у Pricing — rejected (див. Resolution)
 - 03 adaptive — окремий тікет після грилю, зараз web/desktop enough
