@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useLayoutEffect } from "react";
 import Link from "next/link";
 import { ArrowRightIcon, PlayIcon } from "@phosphor-icons/react";
 import {
@@ -18,9 +18,12 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 // HERO — canonical (ex-HeroFinal v2.3). Adapted from 21st 1503 Hero Parallax.
-// Web/desktop done: tilt 12° [0,0.2], translateY [-370,70], h-[180vh], scroll-only X ±1000,
-// cyclic 2×, no blur over grid, light hover black/30 + translate 300ms, z-20 text over z-10.
-// Mobile/tablet adaptive — follow-up after dedicated grill (separate ticket).
+// Tilt 12° [0,0.2], translateY [-370,70], h-[180vh], cyclic 2×, no blur over grid,
+// light hover black/30 + translate 300ms, z-20 text over z-10.
+// Card size adaptive (03 follow-up, decision A = all breakpoints): h = max(floor,
+// min(current, 60vh - K)); floor = support from 640px screen height (below = cut,
+// status quo); width via aspect 8/7 · 10/9 · 13/10; X drift capped at
+// min(1000, cardSpan + pad - vw - 4), measured on mount/resize (no row holes).
 
 export const annaBerProducts = [
   {
@@ -129,7 +132,7 @@ function ProductCard({
   return (
     <motion.div
       style={reduce ? undefined : { x: translate }}
-      className="group/product relative h-56 w-64 flex-shrink-0 overflow-hidden rounded-xl bg-white shadow-soft transition-[translate,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-xl md:h-72 md:w-80 lg:h-80 lg:w-[26rem]"
+      className="group/product relative h-[max(160px,min(224px,calc(60vh_-_224px)))] aspect-[8/7] flex-shrink-0 overflow-hidden rounded-xl bg-white shadow-soft transition-[translate,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-xl md:h-[max(190px,min(288px,calc(60vh_-_194px)))] md:aspect-[10/9] lg:h-[max(170px,min(320px,calc(60vh_-_214px)))] lg:aspect-[13/10]"
     >
       <Link href={product.link} className="block h-full w-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -155,7 +158,37 @@ function ProductCard({
 
 export function Hero() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const rowRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
+
+  // Max horizontal drift: keep 1000px while rows still cover the viewport,
+  // otherwise shrink to cardSpan + pad - vw so no holes appear at scroll end.
+  // Layout-based measurement (offsetWidth/gap/pad) — transform-proof: the
+  // preview sits at rotateX/Z 12deg at mount, getBoundingClientRect lies.
+  const maxDriftRef = useRef(1000);
+
+  useLayoutEffect(() => {
+    const measure = () => {
+      const row = rowRef.current;
+      if (!row || row.children.length === 0) return;
+      const first = row.children[0] as HTMLElement;
+      const n = row.children.length;
+      const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+      const pad = parseFloat(getComputedStyle(row).paddingLeft) || 0;
+      const cardSpan = n * first.offsetWidth + (n - 1) * gap;
+      maxDriftRef.current = Math.max(
+        0,
+        Math.min(1000, cardSpan + pad - window.innerWidth - 8),
+      );
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    window.addEventListener("orientationchange", measure);
+    return () => {
+      window.removeEventListener("resize", measure);
+      window.removeEventListener("orientationchange", measure);
+    };
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -165,11 +198,11 @@ export function Hero() {
   const springConfig = { stiffness: 120, damping: 30, bounce: 0 };
 
   const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 1000]),
+    useTransform(scrollYProgress, (v) => v * maxDriftRef.current),
     springConfig,
   );
   const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -1000]),
+    useTransform(scrollYProgress, (v) => -v * maxDriftRef.current),
     springConfig,
   );
   const rotateX = useSpring(
@@ -287,7 +320,10 @@ export function Hero() {
           style={{ rotateX, rotateZ, translateY, opacity }}
           className="hero-preview relative z-10 mt-8 flex flex-col [perspective:1000px] [transform-style:preserve-3d] motion-reduce:opacity-100! motion-reduce:transform-none! md:mt-10"
         >
-          <motion.div className="flex flex-row-reverse items-center gap-6 px-6 md:gap-8 md:px-8 mb-6 md:mb-8">
+          <motion.div
+            ref={rowRef}
+            className="flex flex-row-reverse items-center gap-6 px-6 md:gap-8 md:px-8 mb-6 md:mb-8"
+          >
             {firstRowLoop.map((product, idx) => (
               <ProductCard
                 key={`${product.title}-${idx}`}
