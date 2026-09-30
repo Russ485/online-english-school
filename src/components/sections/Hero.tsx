@@ -131,10 +131,13 @@ function ProductCard({
 }) {
   return (
     <motion.div
-      style={reduce ? undefined : { x: translate }}
+      style={{ x: reduce ? 0 : translate }}
       className="group/product relative h-[max(160px,min(224px,calc(60vh_-_224px)))] aspect-[8/7] flex-shrink-0 overflow-hidden rounded-xl bg-white shadow-soft transition-[translate,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-xl md:h-[max(190px,min(288px,calc(60vh_-_194px)))] md:aspect-[10/9] lg:h-[max(170px,min(320px,calc(60vh_-_214px)))] lg:aspect-[13/10]"
     >
-      <Link href={product.link} className="block h-full w-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">
+      <Link
+        href={product.link}
+        className="block h-full w-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500"
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={product.thumbnail}
@@ -263,9 +266,11 @@ export function Hero() {
   const firstRow = annaBerProducts.slice(0, 5);
   const secondRow = annaBerProducts.slice(5, 10);
   const thirdRow = annaBerProducts.slice(10, 15);
-  const firstRowLoop = [...firstRow, ...firstRow];
-  const secondRowLoop = [...secondRow, ...secondRow];
-  const thirdRowLoop = [...thirdRow, ...thirdRow];
+  // ×3 copies (15 cards/row): row span stays ≥ viewport even at floor card
+  // size (640px-tall screens, e.g. 2560×640) — no holes at max drift.
+  const firstRowLoop = [...firstRow, ...firstRow, ...firstRow];
+  const secondRowLoop = [...secondRow, ...secondRow, ...secondRow];
+  const thirdRowLoop = [...thirdRow, ...thirdRow, ...thirdRow];
 
   return (
     <section
