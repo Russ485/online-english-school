@@ -2,7 +2,7 @@
 
 **Label:** wayfinder:task
 **Map:** map-annaber-rebuild.md
-**Status:** DONE (2026-09-29) — чекає closing go (Status → CLOSED + map)
+**Status:** CLOSED (2026-09-29)
 **Blocked by:** 07-gsap-motion-pass.md
 
 ## Question

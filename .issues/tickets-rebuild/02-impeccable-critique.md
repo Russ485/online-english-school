@@ -2,7 +2,7 @@
 
 **Label:** wayfinder:grilling
 **Map:** map-annaber-rebuild.md
-**Status:** OPEN
+**Status:** CLOSED (2026-09-01)
 **Blocked by:** 01-playwright-baseline.md
 
 ## Question

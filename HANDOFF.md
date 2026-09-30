@@ -1,4 +1,4 @@
-# HANDOFF — AnnaBer Rebuild (2026-09-29, Ticket 08 DONE → чекає closing go)
+# HANDOFF — AnnaBer Rebuild (2026-09-30, MAP DONE — 00-10 + 03 adaptive follow-up CLOSED; наступне лише за ок: коміт docs+src)
 
 > **Живе в репо** (`HANDOFF.md:1`), не в `Temp` — щоб не зникав. Оновлюється після кожного тікета/сесії.
 
@@ -7,13 +7,15 @@
 - **Ticket 00** `00-product-init` — **CLOSED** (PRODUCT.md + DESIGN.md via OD `ba33a560-5e9c-4520-a6ef-ca19c36b798e` + `tokens.css` + `layout.tsx` Fredoka/DM Sans)
 - **Ticket 01** `01-playwright-baseline` — **CLOSED** (`tests/baseline.spec.ts`, `screenshots/baseline/` 375/768/1280, `FINDINGS.md`)
 - **Ticket 02** `02-impeccable-critique` — **CLOSED** (`02-impeccable-critique.md:30` DONE 2026-09-01, health 18/32, P0/P1/P2, `impeccable/critique/annaber-baseline-02.md`)
-- **Ticket 03** `03-hero-parallax-21st` — **PARTIAL (web/desktop done, mobile/tablet follow-up)** — canonical `src/components/sections/Hero.tsx:1`. **НЕ чіпати** (включно з formatting-only uncommitted правками — підтверджено користувачем як канонічні). 03 adaptive → окрема гриль-сесія пізніше.
+- **Ticket 03** `03-hero-parallax-21st` — **CLOSED (2026-09-30)**: web/desktop (2026-09-04) + **F1** reduce-freeze `.hero-preview` (сесія 1) + **adaptive кнопки** (grid max-w-md, verify 3/3); **F2 height-runway → REJECTED власником** (відкочено повністю). Canonical `src/components/sections/Hero.tsx:1`. Resolution — секція `Resolution 03 / adaptive closing` нижче.
 - **Ticket 04** `04-benefits-21st` — **CLOSED (2026-09-23)**, повний Resolution у `.issues/tickets-rebuild/04-benefits-21st.md:30` (gradient-card hand-replicate, DIRECT EDIT, Framer Motion hover, entrance прибрано «поки»).
 - **Ticket 05** `05-pricing-howitworks-21st` — **CLOSED (2026-09-26)**: Pricing + HowItWorks DONE + анімація HowItWorks ітерація-3 + **REOPEN закрито (2026-09-26): статичне зображення — варіант A (clip-path mask на grid-cell, контент без трансформацій), верифіковано 2/2**. Повні Resolutions — у `.issues/tickets-rebuild/05-pricing-howitworks-21st.md:26` (REOPEN — секція `## REOPEN` наприкінці).
 - **Ticket 06** `06-testimonials-faq-footer-21st` — **CLOSED (2026-09-28)**: **Testimonials DONE** (2026-09-26, get 822 serafim MIT) + **FAQ DONE** (2026-09-27, get 25011 intentui MIT) + **Footer DONE** (2026-09-28, **0 get** — typewriter-назва hand-replicate + **v2 гігантський outline ANNABER + v3 правки користувача (прозорий stroke 30%, text-left, 16.5vw/12.5rem, bottom-based позиціонування), verify 4/4**, квота 2/2 не витрачена). Resolutions — секції `Resolution 06 / Testimonials`, `Resolution 06 / FAQ`, `Resolution 06 / Footer` нижче.
 - **Ticket 07** `07-gsap-motion-pass.md` — **CLOSED (2026-09-28)**: рішення **гібрид** (FM entrances у Pricing/HowItWorks лишились; GSAP = Hero + Benefits reveal), Hero `useGSAP`-уніфікація + matchMedia-guard, Benefits ScrollTrigger reveal (DESIGN 7.2, **`start "top 72%"` — власний підбір власника**), verify 4/4, **0 get**. Resolution — секція `Resolution 07` нижче.
-- **Ticket 08** `08-impeccable-polish.md` — **DONE (2026-09-29), Status OPEN → чекає closing go** (5/6 етапів зі STOP, усі рішення групи застосовані): contrast 14→2 (FP), Fredoka 500-700, FAQ aria, токени accent-700/success-700, focus-visible повний, radius-ритм, **LCP 375: 3040→200ms**, detect 0 findings. Resolution — секція `Resolution 08` нижче.
-- **Далі:** closing go на 08 (Status→CLOSED + map) → Ticket 09 (Playwright verification). NO AUTO-ADVANCE.
+- **Ticket 08** `08-impeccable-polish.md` — **CLOSED (2026-09-29)**: contrast 14→2 (FP), Fredoka 500-700, FAQ aria, токени accent-700/success-700, focus-visible повний, radius-ритм, **LCP 375: 3040→200ms**, detect 0 findings, 0 get. Resolution — секція `Resolution 08` нижче.
+- **Ticket 09** `09-playwright-verification.md` — **CLOSED (2026-09-30)**: регенерація baseline 3/3 (спека не чіпана) + `screenshots/verification/` 24/24 повні, текстовий diff vs 02-critique, К4 5/6 PASS, **F1 reduce-freeze + F2 hero overflow → defer 03-adaptive grill**, 0 get. Resolution — секція `Resolution 09` нижче.
+- **Ticket 10** `10-code-review.md` — **CLOSED (2026-09-30)**: two-axis review (Standards/Spec parallel sub-agents) за fixed point `f6d95ea...HEAD`; findings: Standards 4 / Spec 9; **фікси 4/4** (reduce-hydration Pricing/HowItWorks, Benefits frozen-copy periods, FAQ aria-controls conditional, popular checks → success-700); lint ✓ build ✓ temp-verify 5/5; Duplicated Code accepted. Resolution — секція `Resolution 10` нижче.
+- **Далі:** **МАПА ВИКОНАНА (2026-09-30)** — 00-10 CLOSED + 03 adaptive follow-up закрито. Відкритий лише **коміт docs+src** (окремий go). Backlog-факт: втрата baseline01/FINDINGS.md (без дій). NO AUTO-ADVANCE — будь-яка нова робота лише за ок.
 
 ## Resolution 05 / Pricing (2026-09-25) — що зроблено
 
@@ -90,11 +92,41 @@
 - **Етап 6:** `detect.mjs` 9 файлів → 1 finding (bounce `--ease-spring-soft` — канонічний DESIGN.md токен, unused) → inline-ignore → **0 findings exit 0**; скріни 375/768/1280 top+375-full вручну ✓; фінальний прогін fails=2(FP)/overflow ✓/console 0/focus 59/59; lint+build ✓. Прибрано temp-спеку/скріни/скрипти, :3000 зупинено, `baseline.spec.ts` не чіпаний.
 - **⚠️ Gotcha (нові):** (14) **декілька `next start`+rebuild поспіль → змішаний стан ассетів** (каламутні rects, хибні 0-visible) → вбивати :3000 перед rebuild+measure; (15) `fetchPriority` camelCase у React 19 ✓; (16) lab()→sRGB у temp-спеці ±3 ΔE — ок для діагностики; без конверсії діагностика контрасту хибить на Tailwind v4.1 `@supports lab()` gray-токенах.
 
+## Resolution 09 / Playwright verification (2026-09-30) — що зроблено
+
+- **Рішення BEFORE START:** grilling — ні; skills — `playwright-core`; workflow — run spec + temp-спеки + docs (**без правок src**); **diff = текстовий** (питання через втрату даних, див. нижче); 0 × 21st get. `tests/baseline.spec.ts` **не редагувався**.
+- **⚠️ Втрата стартових baseline:** `screenshots/baseline/` (01) + `FINDINGS.md` зникли (`screenshots/` gitignored, у git ніколи не комітились; `f6d95ea` 2026-09-04 уже з перебудованим Hero → реконструкція «скучненько» з git неможлива). Diff-«старт» = `.impeccable/critique/annaber-baseline-02.md` + Resolutions 03-08.
+- **Regeneration:** kill :3000 (stale PID 35552) → lint ✓ build ✓ → спека **3/3 PASS** → 24 PNG `screenshots/baseline/`. **Лімітація spec: 21/24 blank/mid-fade** (scrollIntoView→screenshot без очікувань входів; `fullPage` не скролить → lazy-img + нижні входи не фірять). За ok: temp-спека (scroll-through → images/fonts ready → settle 1.9s) → **`screenshots/verification/` 24/24 повні**, verified pixel-аналізом (distinct 125-12300 vs 1-2) + crop'ами. `baseline/` лишився «як є».
+- **К4 temp-verify 6 тестів:** overflow `scrollWidth==iw` ✓; cut-off candidates by-design ✓; `scrollHeight 5430→5430`, no pin ✓; Hero parallax change/return ✓; console 0 ✓; **reduce PARTIAL → F1**. Спеки/скріни/test-results видалені, :3000 вбито (після прогону лишався PID 32764 — див. gotcha 19).
+- **Diff-звіт:** P0-1/P0-3/P1-1/P1-3/P1-4/P1-5/P2-1/P2-3/P2-4 FIXED; P1-2/P2-2/P2-5 SUPERSEDED/MOOT (redesign); P0-2 → redesign + 03-adaptive; **P1-6 (2026-09-01) не закритий → F1**. Повний текст — `.issues/tickets-rebuild/09-playwright-verification.md:25`.
+- **F1 (defer 03-adaptive grill):** `.hero-preview` під reduce = SSR-стан назавжди (`opacity 0.2` + `translateY -370` + tilt 12°, `dynamic=false`; React ignored style-mismatch — рецидив прецедента 06; бранч `Hero.tsx:287-296`). Blur/benefits/marquee guard-и ✓.
+- **F2 (defer 03-adaptive grill):** обрізка рядів hero на settled-стані (`h-[180vh]` vs px/рем-контент): 1280×800 → **161px (r3)**, 700→341, 600→521, 500→701; 768 → 38/218/398/578; 375×800 → **0** (єдиний чистий), 375×700/600/500 → 85/265/445.
+- **⚠️ Gotcha (нові):** (17) **спека-скріншоти без settle → blank** (entrance 0.5-1.6s + `fullPage` без скролу) → знімки з поведінкою робити окремою temp-спекою з scroll-through + settle; сам `baseline.spec.ts` не чіпати; (18) **втрата `screenshots/` = втрата усього**, що в gitignore (baseline01, FINDINGS.md) — цінні артефакти в 09+ дублювати в docs; (19) `webServer` Playwright іноді **лишає `next start` живим після прогону** (PID 32764) → перевіряти :3000 після кожного запуску, не лише перед; (20) **reduce × hydration рецидив**: FM-бранч reduce в attributes знову загубився після гідратизації (F1) — правило 06 «reduce-класи не в атрибути» поширюється і на inline style з MotionValue-станом.
+
+## Resolution 10 / Code Review (2026-09-30) — що зроблено
+
+- **Рішення BEFORE START (question tool):** grilling — ні; skills — **`code-review`** (за map-порядком) + **`playwright-core`** (verify фіксів); fixed point — **`f6d95ea...HEAD`** (`main...HEAD` = порожньо — ми на main == `origin/main` == `9ca8d54`; `46aeec4` = лише README); **working tree (4 docs) — рев'ю без коміту**. Workflow за skill: pin fixed point → 2 parallel sub-agents (`general`) в одному повідомленні → агрегація `## Standards` / `## Spec` (без rerank між осями) → фікси. **0 × 21st get.**
+- **Sources:** Standards = `AGENTS.md` + `HANDOFF.md` (documented decisions, repo overrides) + smell baseline (Fowler ×12); Spec = map + frozen copy `.issues/tickets-legacy/02-landing-page-content-copy.md` + `PRODUCT.md` + токени `src/app/tokens.css`/`MASTER.md` + тікети 03-08 (OD MCP недоступний у сесії саб-агента → fallback локальний ✓).
+- **Findings (повністю у `.issues/tickets-rebuild/10-code-review.md` Resolution):** **Standards 4** — worst = hard: reduce-hydration `initial={reduce ? "shown" : "hidden"}` у `Pricing.tsx:92` + `HowItWorks.tsx:125,175` (рецидив gotcha 20; Faq/Testimonials дотримувались правила); smells: **Duplicated Code** `ease`+entrance/hover variants ×5 файлів → **accepted** (refactor 5 верифікованих секцій = ризик), Duplicated Code minor (GSAP register+guard ×2, Footer letter-loop ×2), Mysterious Name minor (`place`, `APPEAR/REST/PEAK_AT`). Suppressed by repo override: clipPath/height/width-анімації, `useGSAP({scope})`, legacy-файли. **Spec 9** — worst = frozen copy Benefits (5 trailing periods); + checks наполовину (`success-700` лише non-popular), FAQ dangling `aria-controls`; (a) 03 adaptive PARTIAL/09 gitignored/07 `72%` не переганявся; (b) scope-creep = Phosphor renames (`3946637`), Hero formatting (07/08), `min-h` (`b17b52e`) → усі в санкціонованих комітах → accepted.
+- **Фікси 4/4:** (1) `Pricing`/`HowItWorks`: `initial="hidden"` завжди + `entranceVariants` перенесено з module-level у компонент, `transition: reduce ? { duration: 0 } : {...}` (канонічний прецедент Faq:50-52); (2) `Benefits.tsx` — прибрано 5 крапок (copy дослівно `02:31-35`); (3) `Faq.tsx` — `aria-controls={isOpen ? \`faq-panel-N\` : undefined}`; (4) `Pricing.tsx:143` — усі checks `text-success-700`.
+- **Verify:** lint ✓ build ✓; temp-спека **5/5**: reduce-entrance instant (opacity ≥0.99 за 300мс, pre-scroll <0.5, **0 console errors**), normal entrance завершується, FAQ single-panel aria (рівно 1 `faq-panel-*` у DOM), Benefits 5/5 verbatim, popular check `rgb(21,128,61)` + скріншот вручну ✓. Спека/скріншот/test-results видалені, :3000 вбито (**gotcha 19** знову — лишився після прогону), `baseline.spec.ts` не чіпаний. ⚠️ Спека-нюанс: `ancestor::div[contains(@class,'h-full')]` ловить card (class-list) замість entrance-wrapper → exact `@class='h-full'`.
+
+## Resolution 03 / adaptive closing (2026-09-30) — F1 + F2 + adaptive; MAP DONE
+
+- **Рішення BEFORE START (обидві сесії):** grilling — грил проведено у сесії 1, рішення виконувались без повторного; skills — `playwright-core`; workflow — **DIRECT EDIT** `src/components/sections/Hero.tsx` (єдиний src-файл); **0 × 21st get**. `tests/baseline.spec.ts` не чіпаний.
+- **F1 (сесія 1, DONE, верифіковано 2/2):** `Hero.tsx:287` reduce-ternary прибрано → завжди `style={{ rotateX, rotateZ, translateY, opacity }}`; `.hero-preview` + `motion-reduce:opacity-100! motion-reduce:transform-none!` (CSS media → SSR=клієнт, прецедент 06). **ProductCard ternary (`Hero.tsx:131`) лишився — рішення A-мінімум** (див. gotcha 21). Normal: паралакс 0.2→>0.9→0.2; reduce: opacity 1 / transform none / статично / картки статичні / 0 console errors.
+- **F2 (сесія 2, виконано → REJECTED власником):** варіант A `h-[220vh] lg:h-[240vh]` + тайттенінг (`mb-6 md:mb-8`→`mb-6`, `md:mt-10`→`mt-8`) верифіковано **13/13** (12 гео-комбо чисті; **модель підтверджена точно**: contentBottom = layout + settled translateY 70 → **1345 / 1454.6 / 1577**, пороги **612 / 661 / 657**, найгірший запас −12.8px @768×667; no `.pin-spacer`, scrollHeight 5910→5910), але **повністю відкочено**: «дуже завеликий відступ знизу, так було краще і все було видно — себе не виправдало». Hero = `h-[180vh]` + `mb-6 md:mb-8` + `mt-8 md:mt-10`; git diff Hero містить **лише F1 + adaptive**. Обрізка рядів на малих vh (таблиця Resolution 09) = **статус-кво**. REJECTED (не пропонувати): зміна translateY [-370,70], bottom-fade маска, лише-tighten без height, будь-який height-runway («завеликий відступ»).
+- **Adaptive (сесія 2, DONE, verify 3/3):** `.hero-cta` `flex flex-wrap items-center justify-center gap-4` → `mx-auto grid w-full max-w-md grid-cols-1 gap-4 sm:grid-cols-2`; обидві кнопки + `w-full justify-center` (копірайт/стилі frozen без змін; sizes/top/mt/3 ряди карток — не чіпались). Ширина обох кнопок **diff = 0.00px** (±0.5): 375 → **343/343**, 768/1280 → **216/216** (було 175/202); `scrollWidth ≤ w+1`; скріни before/after 375/768 показані власнику. REJECTED: `flex-1` у max-w-2xl, `min-w-[210px]`, fixed `w-[210px]`.
+- **Verify:** lint ✓ build ✓ (після кожної сесії); temp-спеки/скріни/test-results видалені, :3000 вбитий. Коміт docs+src — **окремий go** (backlog).
+- **⚠️ Gotcha (нові):** (21) **ProductCard ternary = dev-only hydration badge:** reduce-клієнт `style={{}}` ≠ сервер `style={{transform:"none"}}` (reduce=null → FM identity) → Next devtools червоний «1 Issue» у **dev**; **prod мовчки ігнорує** attribute-mismatch (0 console errors). F1-residual (A-мінімум) — не чіпати без ок; (22) **`reuseExistingServer` переиспользує ЗОВНІШНІЙ dev-сервер** на :3000 (доказ: `.next/dev` mtime під час сесії) → перевіряти не лише порт, а ЩО за процес його тримає; (23) **sticky у Hero інертний:** `overflow-hidden` на секції = нерухомий scrollport → `stickyTop@mid = −scrollY` (pre-existing, не регресія; модель F2 `cut = contentBottom − sectionBottom` саме для статичного скролу) — міняти тільки з ок.
+
 ## Відомі незакриті місця (мимо поточного тікета)
 
 1. **LCP dev-hint — ВИРІШЕНО в 08** (2026-09-29): реальний LCP = Hero preview img → eager+fetchPriority, 375: 3040→200ms. Benefits-підказка була хибною.
-2. 03 adaptive (mobile/tablet Hero) → окрема гриль-сесія.
-3. Незакомічені правки 06/07/08 (`HANDOFF.md`, map, тікети 06/07/08, `Hero.tsx`, `Benefits.tsx`, `tokens.css`, `Faq/Pricing/HowItWorks/Benefits/Testimonials/Footer.tsx`, `layout.tsx`) — закомічити разом з docs (після closing go).
+2. ~~03 adaptive~~ → **ЗАКРИТО 2026-09-30** (F1 + adaptive DONE, F2 REJECTED — див. `Resolution 03 / adaptive closing`).
+3. Незакомічені правки: docs (map, тікети 00/01/02/03/08/09/10, HANDOFF) + **src** (`Hero.tsx` F1+adaptive, фікси 10: `Benefits.tsx`, `Faq.tsx`, `HowItWorks.tsx`, `Pricing.tsx`) — src-частини 06/07/08 уже закомічені у `9ca8d54` (2026-09-29) → закомічити docs+src разом (після closing go).
+4. Втрата `screenshots/baseline/` (01) + `FINDINGS.md` — факт, задокументовано у Resolution 09; піксельний diff vs 01 неможливий (відновити можна лише з бекапів користувача, якщо знайдуться).
+5. ~~Drift `01-playwright-baseline.md`~~ → **ВИправлено 2026-09-30** (ok «приведи у відповідність»): статуси тікетів **00/01/02 → CLOSED** (00 — 2026-08-31, 01/02 — 2026-09-01), Resolution 01 дописано (artifact loss documented), 03 Status wording → PARTIAL як у map, map `Status` → **ACTIVE (00-10 done, лише 03 follow-up відкритий)**.
 
 ## Що побудовано (2026-09-04, не змінилось)
 
@@ -111,7 +143,7 @@
 - 21st APPROVAL GATE: `search --json → лінки (робочий format url з search) → ok → get` (05-06); quota перед стартом `npx @21st-dev/cli usage`; ліцензія компонента МАЄ бути явною (MIT/Apache) перед `get`
 - OD read-only via MCP, light only, CTA "Start learning"
 - DIRECT EDIT у канонічних файлах; прототип/page-SWITCH відхилено (прецедент 04)
-- Playwright — тільки тимчасові verify-спеки (писати → run → видалити); `tests/baseline.spec.ts` НЕ чіпати (09)
+- Playwright — тільки тимчасові verify-спеки (писати → run → видалити); `tests/baseline.spec.ts` НЕ чіпати (09 завершено — спека лишається недоторканою; знімки з поведінкою через окремі temp-спеки)
 - Контент секцій — frozen copy з `.issues/tickets-legacy/02-landing-page-content-copy.md` (без переписування без ок)
 - Мікроанімації секцій — Framer Motion; GSAP — лише Hero scrub + Ticket 07
 
@@ -223,28 +255,89 @@ Scope 08 (з тікета):
 Працюй українською, техтерміни English.
 ```
 
-## Prompt для наступної сесії (закриття 08 → Ticket 09)
+## Prompt для наступної сесії (Ticket 09: Playwright verification) — ВИКОРИСТАНО (2026-09-30, 09 DONE)
 
 Скопіюй:
 
 ```
-Продовжуємо AnnaBer Rebuild — це мій go на закриття Ticket 08 (DONE 2026-09-29: contrast 14→2 FP, focus, radius, LCP 3040→200ms, detect 0 findings), далі Ticket 09 (Playwright verification). НЕ авансимось на 10.
+Продовжуємо AnnaBer Rebuild — Ticket 09: Playwright verification (08 закрито 2026-09-29). НЕ авансимось на 10.
 
 Спочатку прочитай (у такому порядку):
-1. HANDOFF.md (секція Resolution 08 + gotcha 14-16; «Відомі незакриті місця» — LCP закритий)
-2. .issues/map-annaber-rebuild.md (active wayfinder)
-3. .issues/tickets-rebuild/08-impeccable-polish.md → Status DONE (цей промпт = мій go) → CLOSED; map рядок 08 → CLOSED
-4. .issues/tickets-rebuild/09-playwright-verification.md + PRODUCT.md + AGENTS.md
+1. HANDOFF.md (canonical resume — Resolutions 05-08, gotcha 1-16; LCP-backlog закритий)
+2. .issues/map-annaber-rebuild.md (active wayfinder — 08 CLOSED)
+3. .issues/tickets-rebuild/09-playwright-verification.md (Status OPEN → ведемо Resolution)
+4. .issues/tickets-rebuild/01-playwright-baseline.md + FINDINGS.md (стартові baseline-знімки/знахідки — з ними diff)
+5. PRODUCT.md + AGENTS.md (Design Contract, OD id: ba33a560-5e9c-4520-a6ef-ca19c36b798e, токени src/app/tokens.css)
 
-Крок 1: закрий 08 (тікет Status CLOSED + map рядок 08 CLOSED + HANDOFF-стан) → покажи diff і STOP, чекай мій «go» на старт 09.
+Крок 1 (Ticket 09) BEFORE START обов'язково питай: (a) grilling? (b) extra skills? (передбачаю playwright-core; ui-ux-pro-max CLI недоступний — Python 3 не встановлено, ще раз не питай) (c) workflow?
 
-Крок 2 (Ticket 09) BEFORE START обов'язково питай: (a) grilling? (b) extra skills? (передбачаю playwright-core; ui-ux-pro-max CLI недоступий — Python 3 не встановлено) (c) workflow?
-
-Scope 09 (з тікета/ map): регенерація `screenshots/baseline/` (375/768/1280) через `tests/baseline.spec.ts` (він НЕ редагується — лише запускається), diff vs стартові baseline-знімки 01, звіт що змінилось по секціях 03-08.
+Scope 09 (з тікета/map): регенерація `screenshots/baseline/` (375/768/1280) через `tests/baseline.spec.ts` (він НЕ редагується — лише запускається), diff vs стартових baseline 01, звіт що змінилось по секціях 03-08. Якщо в спеці є contrast-перевірки: Tailwind v4.1 накриває gray-токени у `@supports lab()` → конвертувати lab→sRGB (±3 ΔE, див. Resolution 08).
 
 ⚠️ MANDATORY: ONE TICKET AT A TIME, NO AUTO-ADVANCE. `tests/baseline.spec.ts` НЕ чіпати (редактувати — тільки якщо він сам падає, з мого ок). Playwright: перед запуском вбивати застарілий :3000 (gotcha 13/14), test-results очищається щозапуску; temp-спеки — тільки якщо треба (писати → run → видалити). Build+lint після змін. STOP після кожного підпункту.
 
-Стан: 00/01/02 CLOSED; 03 PARTIAL (не чіпати); 04/05/06/07 CLOSED; 08 DONE (цей промпт → CLOSED); 09-10 OPEN. Known backlog: 03 adaptive → окрема гриль-сесія. Квота 21st: 2/2 get (gate стосується 03-06; для 09 не потрібен). Незакомічені правки 06/07/08 + docs — закомічити разом з потрібним тікетом (за моїм ок).
+Стан: 00/01/02 CLOSED; 03 PARTIAL (не чіпати); 04/05/06/07/08 CLOSED; 09-10 OPEN. Known backlog: 03 adaptive → окрема гриль-сесія. Квота 21st: 2/2 get (gate стосується 03-06; для 09 не потрібен).
+
+Працюй українською, техтерміни English.
+```
+
+## Prompt для наступної сесії (Ticket 10: Code Review) — ВИКОРИСТАНО (2026-09-30, 10 CLOSED)
+
+Скопіюй:
+
+```
+Продовжуємо AnnaBer Rebuild — це мій go на старт Ticket 10: Code Review (09 закрито 2026-09-30). НЕ авансимось за межі 10.
+
+Спочатку прочитай (у такому порядку):
+1. HANDOFF.md (canonical resume — Resolutions 05-09, gotcha 1-20; «Відомі незакриті місця»; F1/F2 defer в 03-adaptive grill)
+2. .issues/map-annaber-rebuild.md (active wayfinder — 09 CLOSED, 10 останній)
+3. .issues/tickets-rebuild/09-playwright-verification.md (CLOSED — контекст diff + F1/F2)
+4. .issues/tickets-rebuild/10-code-review.md + skill `code-review` (Standard vs Spec, parallel sub-agents)
+5. PRODUCT.md + AGENTS.md (Design Contract, OD id: ba33a560-5e9c-4520-a6ef-ca19c36b798e, токени src/app/tokens.css)
+
+Крок 1 (Ticket 10) BEFORE START обов'язково питай: (a) grilling? (b) extra skills? (передбачаю: `code-review` — за map workflow (skills порядок: … → code-review (10)) + playwright-core для verify фіксів; ui-ux-pro-max CLI недоступний — Python 3 не встановлено, ще раз не питай) (c) workflow? (та з чого робити фіксовану точку diff — див. нюанс нижче).
+
+Scope 10 (з тікета):
+- Фіксована точка: `git diff main...HEAD` або `46aeec4...HEAD` (first commit) — ⚠️ НЮАНС: `46aeec4` = лише README, перший реальний коміт = `f6d95ea` (2026-09-04); плюс у дереві є незакомічені правки 06/07/08/09 (HANDOFF/map/тікети/секції) → спитати: комітити docs+src перед рев'ю чи рев'ювати working tree?
+- Standards axis: repo standards + smell baseline (Mysterious Name, Duplicated Code, Feature Envy …) через `code-review` skill
+- Spec axis: map-annaber-rebuild + frozen copy (⚠️ у тікеті шлях `.issues/tickets/02-...` — правильний: `.issues/tickets-legacy/02-landing-page-content-copy.md`) + DESIGN.md/tokens (OD MCP у сесії може не підвестись — fallback: локальна копія OD або src/app/tokens.css)
+- Parallel sub-agents за skill → агрегація у ## Standards / ## Spec
+- Fix worst findings → build passes
+
+⚠️ MANDATORY: ONE TICKET AT A TIME, NO AUTO-ADVANCE (після 10 — STOP, map виконано). `tests/baseline.spec.ts` НЕ чіпати. 03 НЕ чіпати (F1 reduce-freeze + F2 hero overflow → окрема гриль-сесія 03 adaptive, НЕ виправляти в 10). Frozen content без переписування. Playwright — лише temp-спеки (писати → run → видалити; перед/після запуску перевіряти :3000 — gotcha 19). Build+lint після фіксів. STOP після кожного підпункту.
+
+Стан: 00-09 CLOSED; 10 OPEN (останній). Known backlog: 03 adaptive grill (input: F1+F2); втрата baseline01/FINDINGS.md; drift тікета 01 (Status OPEN). Квота 21st: 2/2 get (gate стосується 03-06; для 10 не потрібен).
+
+Після прочитання: проговори 3-5 пунктів що бачиш (перевірка HANDOFF), потім питання Кроку 1 (BEFORE START для Ticket 10) і ЧЕКАЙ.
+
+Працюй українською, техтерміни English.
+```
+
+## Prompt для наступної сесії (03 adaptive grill — ЄДИНИЙ відкритий пункт мапи) — ВИКОРИСТАНО (2026-09-30, закрито: F1 + adaptive DONE, F2 REJECTED)
+
+Скопіюй:
+
+```
+Продовжуємо AnnaBer Rebuild — 03 adaptive grill (окрема запланована гриль-сесія; основний цикл 00-10 закрито 2026-09-30). НЕ авансимось за межі 03.
+
+Спочатку прочитай (у такому порядку):
+1. HANDOFF.md (canonical resume — Resolution 09 (F1/F2 + таблиця обрізки рядів) + Resolution 10 (фікси reduce-hydration); gotcha 1-20+; «Відомі незакриті місця»)
+2. .issues/map-annaber-rebuild.md (рядок 03 = PARTIAL + note про adaptive; Status = ACTIVE, лише 03 follow-up)
+3. .issues/tickets-rebuild/03-hero-parallax-21st.md (Status PARTIAL + Resolution web/desktop)
+4. src/components/sections/Hero.tsx (канонічний; ЄДИНИЙ src-файл для правок у цій сесії)
+5. PRODUCT.md + AGENTS.md (Design Contract, OD id: ba33a560-5e9c-4520-a6ef-ca19c36b798e, токени src/app/tokens.css)
+
+Крок 1 BEFORE START обов'язково питай: (a) grilling? (очікувано: ТАК — це гриль-сесія: спершу рішення/варіанти/REJECTED → мій ок → фікси) (b) extra skills? (передбачаю: playwright-core для verify; gsap-react/gsap-scrolltrigger якщо чіпатимемо scrub; ui-ux-pro-max CLI недоступний — Python 3 не встановлено, ще раз не питай) (c) workflow? (очікувано: DIRECT EDIT Hero.tsx з ок; прототип/page-SWITCH відхилено прецедентом 04).
+
+Scope 03 adaptive (усе з Resolution 09/HANDOFF, більше НІЧОГО):
+- **F1 (P1, a11y):** `.hero-preview` під reduce = SSR-стан назавжди (opacity 0.2 + translateY -370 + tilt 12°, dynamic=false; React ignored style-mismatch — рецидив gotcha 20; гілка Hero.tsx близько рядків 287-296). Правило 06/10: reduce-бранчі НЕ в атрибути; reduce-стан має бути однаковим з SSR + `duration: 0` (канонічні прецеденти Faq/Testimonials + фікси 10 у Pricing/HowItWorks).
+- **F2 (geometry):** обрізка рядів hero `overflow-hidden` (`h-[180vh]` vs px/рем-контент), settled-стан: таблиця у Resolution 09 (1280×800 → 161px r3, 700→341, 600→521, 500→701; 768 → 38/218/398/578; 375×800 → 0 — єдиний чистий; 375 нижче → 85/265/445).
+- **Mobile/tablet adaptive Hero** (map note: sizes/top/mt; PRODUCT: hero stacks on mobile). Web/desktop рішення (h-[180vh], tilt 12°, translateY [-370,70], sticky) НЕ переписувати без потреби і без ок.
+
+⚠️ MANDATORY: ONE TICKET AT A TIME, NO AUTO-ADVANCE. `tests/baseline.spec.ts` НЕ чіпати. Frozen content без переписування. Playwright — лише temp-спеки (писати → run → видалити; перед/після запуску перевіряти :3000 — gotcha 13/19; `page.emulateMedia({ reducedMotion: "reduce" })` перед goto; exact-class локатори замість contains(@class) — нюанс Resolution 10). Build+lint після фіксів. STOP після кожного підпункту (F1 → STOP → F2 → STOP → adaptive → STOP). Після 03 CLOSED: тікет + map (03 → CLOSED, Status → DONE) + HANDOFF → STOP (map закрито).
+
+Стан: 00-10 CLOSED/виконано; 03 = PARTIAL (web/desktop done; ця сесія = mobile/tablet + F1+F2). Інший backlog: коміт docs+src фіксів/правок (після closing go), втрата baseline01/FINDINGS.md (факт, без дій). Квота 21st: gate стосувався 03-06 rebuild — get більше НЕ потрібен (get 1503 витрачено у 03; для адаптиву 21st не залучається).
+
+Після прочитання: проговори 3-5 пунктів що бачиш (перевірка HANDOFF + стан Hero/F1/F2 у коді), потім питання Кроку 1 і ЧЕКАЙ.
 
 Працюй українською, техтерміни English.
 ```
@@ -285,4 +378,4 @@ Verify: lint + build → тимчасова Playwright-спека (підхід 
 - Мікроанімації секцій — Framer Motion (spring для bounce); GSAP — Hero scrub + Benefits reveal (`start "top 72%"`, власний підбір); контент секцій — frozen copy
 - Послідовність усередині тікета: STOP між підпунктами (05: Pricing → HowItWorks, обидва DONE 2026-09-25)
 - 21st: ліцензія обов'язова перед get; flip/scale/toggle у Pricing — rejected (див. Resolution)
-- 03 adaptive — окремий тікет після грилю, зараз web/desktop enough
+- ~~03 adaptive — окремий тікет після грилю~~ → **закрито 2026-09-30**: адаптив = лише кнопки; **height-runway у hero → REJECTED («завеликий відступ») — не пропонувати знову**

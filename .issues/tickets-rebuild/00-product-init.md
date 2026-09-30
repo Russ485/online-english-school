@@ -2,7 +2,7 @@
 
 **Label:** wayfinder:task
 **Map:** map-annaber-rebuild.md
-**Status:** OPEN
+**Status:** CLOSED (2026-08-31)
 **Blocked by:** -
 
 ## Question

@@ -47,15 +47,6 @@ const tiles = [
 
 const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
-const entranceVariants = {
-  hidden: { opacity: 0, y: 40 },
-  shown: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.75, ease, delay: 0.1 + i * 0.18 },
-  }),
-};
-
 const hoverVariants = {
   rest: { y: 0 },
   hover: { y: -4, transition: { duration: 0.15, ease } },
@@ -90,6 +81,18 @@ const tileLoop = (i: number) => {
 
 export function HowItWorks() {
   const reduce = useReducedMotion();
+
+  const entranceVariants = {
+    hidden: { opacity: 0, y: 40 },
+    shown: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: reduce
+        ? { duration: 0 }
+        : { duration: 0.75, ease, delay: 0.1 + i * 0.18 },
+    }),
+  };
+
   const [active, setActive] = useState(0);
   const [loopStarted, setLoopStarted] = useState(false);
   const loopLive = loopStarted && !reduce;
@@ -122,7 +125,7 @@ export function HowItWorks() {
                 key={step.number}
                 custom={index}
                 variants={entranceVariants}
-                initial={reduce ? "shown" : "hidden"}
+                initial="hidden"
                 whileInView="shown"
                 viewport={{ once: true, amount: 0.4 }}
               >
@@ -172,7 +175,7 @@ export function HowItWorks() {
           <motion.div
             custom={3}
             variants={entranceVariants}
-            initial={reduce ? "shown" : "hidden"}
+            initial="hidden"
             whileInView="shown"
             viewport={{ once: true, amount: 0.3 }}
             role="img"

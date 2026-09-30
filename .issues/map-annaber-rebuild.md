@@ -1,7 +1,7 @@
 # Map: AnnaBer Rebuild — Full Landing Redo with 21st + Open Design
 
 **Label:** wayfinder:map
-**Status:** ACTIVE
+**Status:** DONE — **усі тікети 00-10 CLOSED (2026-09-30, включно з 03 adaptive follow-up: F1 + adaptive DONE, F2 REJECTED)**. Нових тікетів не відкривається. Backlog: коміт docs+src (окремий go).
 **Previous map:** map-annaber-landing.md (all 7 CLOSED, but implementation unsatisfactory — polished incorrectly, "скучненько")
 
 ## Destination
@@ -66,16 +66,16 @@ Rebuild the AnnaBer landing page from scratch on the same product concept, but w
 | 00 | `tickets-rebuild/00-product-init.md` | CLOSED | - |
 | 01 | `tickets-rebuild/01-playwright-baseline.md` | CLOSED | 00 |
 | 02 | `tickets-rebuild/02-impeccable-critique.md` | CLOSED | 01 |
-| 03 | `tickets-rebuild/03-hero-parallax-21st.md` | PARTIAL — web/desktop done, mobile/tablet adaptive → follow-up | 02 |
+| 03 | `tickets-rebuild/03-hero-parallax-21st.md` | **CLOSED (2026-09-30)** — web/desktop (2026-09-04) + F1 reduce-freeze + adaptive кнопки (grid max-w-md, verify 3/3 diff 0.00px); **F2 height-runway REJECTED** власником (відкочено, статус-кво) | 02 |
 | 04 | `tickets-rebuild/04-benefits-21st.md` | CLOSED (2026-09-23, DIRECT EDIT, gradient-card hand-replicate) | 02 |
 | 05 | `tickets-rebuild/05-pricing-howitworks-21st.md` | **CLOSED (2026-09-26)** — Pricing + HowItWorks DONE, анімація ітерація-3; REOPEN закрито: статичне зображення (варіант A clip-path mask), verify 2/2 (див. `## REOPEN` у тікеті) | 03,04 |
 | 06 | `tickets-rebuild/06-testimonials-faq-footer-21st.md` | **CLOSED (2026-09-28)** — Testimonials DONE (get 822 MIT) + FAQ DONE (get 25011 intentui MIT) + Footer DONE **v3** (гігантський outline ANNABER, 0 get; прозорий stroke 30%, text-left, 16.5vw, layout-based позиціонування, verify 4/4) | 05 |
 | 07 | `tickets-rebuild/07-gsap-motion-pass.md` | **CLOSED (2026-09-28)** — гібрид: Hero `useGSAP`-уніфікація (matchMedia-guard) + Benefits ScrollTrigger reveal DESIGN 7.2 (`start top 72%` власний вибір); FM entrances у Pricing/HowItWorks лишились; verify 4/4, 0 get | 06 |
-| 08 | `tickets-rebuild/08-impeccable-polish.md` | OPEN | 07 |
-| 09 | `tickets-rebuild/09-playwright-verification.md` | OPEN | 08 |
-| 10 | `tickets-rebuild/10-code-review.md` | OPEN | 09 |
+| 08 | `tickets-rebuild/08-impeccable-polish.md` | **CLOSED (2026-09-29)** — contrast 14→2 (FP), focus-visible повний, токени accent-700/success-700, radius-ритм, Fredoka 500-700, FAQ aria, **LCP 375: 3040→200ms**, detect 0 findings; 0 get | 07 |
+| 09 | `tickets-rebuild/09-playwright-verification.md` | **CLOSED (2026-09-30)** — регенерація baseline 3/3 (спека не чіпана; 21/24 blank = лімітація spec) + `verification/` 24/24 повні temp-спекою; текстовий diff vs 02-critique (baseline01/FINDINGS.md втрачені); К4 5/6 PASS; **F1 reduce-freeze `.hero-preview` + F2 hero row overflow (1280×800 → 161px) → defer 03-adaptive grill**; 0 get | 08 |
+| 10 | `tickets-rebuild/10-code-review.md` | **CLOSED (2026-09-30)** — two-axis review (Standards/Spec parallel sub-agents) за fixed point `f6d95ea...HEAD` (29 файлів); 4/4 фікси: reduce-hydration Pricing/HowItWorks, Benefits frozen copy (periods), FAQ aria-controls conditional, checks → success-700; lint+build+temp-verify 5/5; Duplicated Code — accepted; 0 get | 09 |
 
-> **03 adaptive:** `Hero.tsx:1` web/desktop done (`h-[180vh] 12° [-370,70]`), screenshots cleaned, `page.tsx → Hero`. Mobile/tablet (sizes/top/mt) → окремий тікет після гриль-сесії, зараз НЕ чіпати 03.
+> **03 adaptive (CLOSED 2026-09-30):** `Hero.tsx:1` web/desktop done (`h-[180vh] 12° [-370,70]`); F1 reduce-freeze DONE; adaptive = лише кнопки (grid `max-w-md` 1-col/2-col, кнопки `w-full justify-center`); **F2 (height 220/240vh) → REJECTED** власником — «завеликий відступ знизу», відкочено повністю. Деталі — Resolution у тікеті + HANDOFF `Resolution 03 / adaptive closing`.
 
 ## Workflow — як домовились (Hero → Benefits — один і той самий)
 

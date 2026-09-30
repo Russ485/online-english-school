@@ -16,7 +16,7 @@ const benefits = [
     alt: "3D school building",
     title: "Real teachers, real progress",
     description:
-      "Live sessions with certified English tutors who adapt to every child's pace.",
+      "Live sessions with certified English tutors who adapt to every child's pace",
     gradient: "from-white via-accent-50 to-accent-200",
     place: "",
   },
@@ -25,7 +25,7 @@ const benefits = [
     alt: "3D game controller",
     title: "Learning through play",
     description:
-      "Interactive games, quizzes, and challenges that make new words stick.",
+      "Interactive games, quizzes, and challenges that make new words stick",
     gradient: "from-white via-violet-50 to-violet-200",
     place: "",
   },
@@ -34,7 +34,7 @@ const benefits = [
     alt: "3D growth chart",
     title: "Track every step",
     description:
-      "Parents see real progress — scores, streaks, and milestones in your dashboard.",
+      "Parents see real progress — scores, streaks, and milestones in your dashboard",
     gradient: "from-white via-primary-50 to-primary-200",
     place: "",
   },
@@ -43,7 +43,7 @@ const benefits = [
     alt: "3D alarm clock",
     title: "Schedule that fits you",
     description:
-      "Book sessions mornings, evenings, or weekends — flex around school and life.",
+      "Book sessions mornings, evenings, or weekends — flex around school and life",
     gradient: "from-white via-pink-50 to-pink-200",
     place: "lg:col-start-2",
   },
@@ -52,7 +52,7 @@ const benefits = [
     alt: "3D friends hugging",
     title: "Small groups, big confidence",
     description:
-      "Max 4 students per group class — enough friends, enough attention.",
+      "Max 4 students per group class — enough friends, enough attention",
     gradient: "from-white via-violet-50 to-violet-200",
     place:
       "md:col-span-2 md:mx-auto md:w-[calc(50%-0.75rem)] lg:col-start-4 lg:w-auto",

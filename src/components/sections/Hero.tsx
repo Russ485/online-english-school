@@ -267,12 +267,12 @@ export function Hero() {
               Fun, interactive lessons with real teachers that build confidence
               and fluency — from first words to full conversations.
             </p>
-            <div className="hero-cta mt-8 flex flex-wrap items-center justify-center gap-4">
-              <button className="inline-flex items-center gap-2 rounded-full bg-primary-600 px-7 py-3.5 text-[15px] font-medium text-white shadow-soft transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5 hover:bg-primary-700 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 active:translate-y-0 active:shadow-soft">
+            <div className="hero-cta mx-auto mt-8 grid w-full max-w-md grid-cols-1 gap-4 sm:grid-cols-2">
+              <button className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary-600 px-7 py-3.5 text-[15px] font-medium text-white shadow-soft transition-[transform,box-shadow,background-color] duration-200 hover:-translate-y-0.5 hover:bg-primary-700 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 active:translate-y-0 active:shadow-soft">
                 Start learning
                 <ArrowRightIcon className="h-4 w-4" weight="bold" />
               </button>
-              <button className="inline-flex items-center gap-2 rounded-full border-2 border-primary-200 bg-white px-7 py-3.5 text-[15px] font-medium text-primary-600 transition-[transform,background-color,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary-500 hover:bg-primary-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 active:translate-y-0">
+              <button className="inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-primary-200 bg-white px-7 py-3.5 text-[15px] font-medium text-primary-600 transition-[transform,background-color,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary-500 hover:bg-primary-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 active:translate-y-0">
                 <PlayIcon className="h-4 w-4" weight="fill" />
                 See how it works
               </button>
@@ -284,17 +284,8 @@ export function Hero() {
         </div>
 
         <motion.div
-          style={
-            reduce
-              ? { opacity: 1 }
-              : {
-                  rotateX,
-                  rotateZ,
-                  translateY,
-                  opacity,
-                }
-          }
-          className="hero-preview relative z-10 mt-8 flex flex-col [perspective:1000px] [transform-style:preserve-3d] md:mt-10"
+          style={{ rotateX, rotateZ, translateY, opacity }}
+          className="hero-preview relative z-10 mt-8 flex flex-col [perspective:1000px] [transform-style:preserve-3d] motion-reduce:opacity-100! motion-reduce:transform-none! md:mt-10"
         >
           <motion.div className="flex flex-row-reverse items-center gap-6 px-6 md:gap-8 md:px-8 mb-6 md:mb-8">
             {firstRowLoop.map((product, idx) => (

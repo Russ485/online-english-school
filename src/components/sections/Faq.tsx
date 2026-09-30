@@ -92,7 +92,7 @@ export function Faq() {
                     type="button"
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     aria-expanded={isOpen}
-                    aria-controls={`faq-panel-${index}`}
+                    aria-controls={isOpen ? `faq-panel-${index}` : undefined}
                     className={`flex w-full items-center justify-between gap-4 rounded-xl p-5 text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500 ${
                       isOpen ? "text-primary-600" : "text-gray-900"
                     }`}
